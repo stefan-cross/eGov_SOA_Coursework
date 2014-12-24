@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.identity.gov.uk/schema/Identity"
+	xmlns:tns="http://www.identity.gov.uk/schema/Identity"
+	elementFormDefault="qualified">
+
+<xsd:element name="uniqueIdentity" type="tns:IdentityInquiryType"></xsd:element>
+
+	<xsd:complexType name="IdentityInquiryType">
+		<xsd:sequence>
+			<xsd:element name="uniqueIdentityId" minOccurs="1" maxOccurs="1" type="xsd:int"></xsd:element>
+			<xsd:element name="identitySurname" minOccurs="1" maxOccurs="1" type="xsd:string"></xsd:element>
+			<xsd:element name="identityDOB" minOccurs="1" maxOccurs="1" type="xsd:date"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="IdentityRecordResponse">
+		<xsd:sequence>
+			<xsd:element name="Title" minOccurs="1" maxOccurs="1" type="TitleType"></xsd:element>
+			<xsd:element name="FirstName" minOccurs="1" maxOccurs="1" type="xsd:string"></xsd:element>
+			<xsd:element name="Surname" minOccurs="1" maxOccurs="1" type="xsd:string"></xsd:element>
+
+			<xsd:element name="Address1" minOccurs="1" maxOccurs="1" type="xsd:string"></xsd:element>
+			<xsd:element name="Address2" minOccurs="1" maxOccurs="1" type="xsd:string"></xsd:element>
+			<xsd:element name="Address3" minOccurs="1" maxOccurs="1" type="xsd:string"></xsd:element>
+			<xsd:element name="County" minOccurs="1" maxOccurs="1" type="xsd:string"></xsd:element>
+			<xsd:element name="PostCode" minOccurs="1" maxOccurs="1" type="xsd:string"></xsd:element>
+
+			<xsd:element name="Phone1" minOccurs="1" maxOccurs="1" type="xsd:string"></xsd:element>
+			<xsd:element name="Phone2" minOccurs="1" maxOccurs="1" type="xsd:string"></xsd:element>
+
+			<xsd:element name="Email" minOccurs="1" maxOccurs="1" type="xsd:string"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!--
+	The simple type created will restrict the text that can be used for this type.
+	I used an enumeration as this provides a restricted, yet consistent list of
+	order statuses that are available. This will map to an enumeration class in Java.
+
+	Further restrictions on Gender, Postcode Password possible with RegExs
+	http://www.w3schools.com/schema/schema_facets.asp
+	-->
+
+	<xsd:simpleType name="TitleType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Mr"></xsd:enumeration>
+			<xsd:enumeration value="Mrs"></xsd:enumeration>
+			<xsd:enumeration value="Miss"></xsd:enumeration>
+			<xsd:enumeration value="Doc"></xsd:enumeration>
+			<xsd:enumeration value="Sir"></xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+</xsd:schema>

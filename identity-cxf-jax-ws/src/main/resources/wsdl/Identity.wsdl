@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:identity="http://www.identity.gov.uk/service/Identity" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.identity.gov.uk/service/Identity" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Identity" targetNamespace="http://www.identity.gov.uk/service/Identity">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.identity.gov.uk/service/Identity">
+      <xsd:import namespace="http://www.identity.gov.uk/service/Identity" schemaLocation="../xsd/Identity.xsd">
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="RetrieveIdentityRequest">
+    <wsdl:part element="identity:uniqueIdentity" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="RetrieveIdentityResponse">
+    <wsdl:part element="identity:IdentityRecordResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="Identity">
+    <wsdl:operation name="RetrieveIdentity">
+      <wsdl:input message="tns:RetrieveIdentityRequest"/>
+      <wsdl:output message="tns:RetrieveIdentityResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IdentitySOAP" type="tns:Identity">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="RetrieveIdentity">
+      <soap:operation soapAction="http://www.identity.gov.uk/service/Identity/RetrieveIdentity"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Identity">
+    <wsdl:port binding="tns:IdentitySOAP" name="IdentitySOAP">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
