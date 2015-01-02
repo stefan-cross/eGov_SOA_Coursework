@@ -1,0 +1,56 @@
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://health.egov.uk/"xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="AppointmentImplService"targetNamespace="http://health.egov.uk/">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://health.egov.uk/" elementFormDefault="unqualified"targetNamespace="http://health.egov.uk/" version="1.0">
+            <xs:element name="appointmentImpl" type="tns:appointmentImpl"/>
+            <xs:element name="getRecord" type="tns:getRecord"/>
+            <xs:element name="getRecordResponse" type="tns:getRecordResponse"/>
+            <xs:complexType name="getRecord">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getRecordResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:appointmentImpl"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="appointmentImpl">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="doctor" type="xs:string"/>
+                    <xs:element minOccurs="0" name="notes" type="xs:string"/>
+                    <xs:element minOccurs="0" name="ref" type="xs:string"/>
+                    <xs:element minOccurs="0" name="summary" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="getRecordResponse">
+        <wsdl:part element="tns:getRecordResponse" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getRecord">
+        <wsdl:part element="tns:getRecord" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="Appointment">
+        <wsdl:operation name="getRecord">
+            <wsdl:input message="tns:getRecord" name="getRecord"></wsdl:input>
+            <wsdl:output message="tns:getRecordResponse" name="getRecordResponse"></wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="AppointmentImplServiceSoapBinding" type="tns:Appointment">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getRecord">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="getRecord">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getRecordResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="AppointmentImplService">
+        <wsdl:port binding="tns:AppointmentImplServiceSoapBinding" name="AppointmentImplPort">
+            <soap:address location="http://localhost:8080/health/Appointment"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
