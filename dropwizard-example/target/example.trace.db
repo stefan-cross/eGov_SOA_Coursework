@@ -1,0 +1,27 @@
+01-03 16:46:51 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "PEOPLE" not found; SQL statement:
+/* named HQL query com.example.helloworld.core.Person.findAll */ select person0_.id as id1_0_, person0_.fullName as fullName2_0_, person0_.jobTitle as jobTitle3_0_ from people person0_ [42102-182]
+01-03 16:47:10 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "PEOPLE" not found; SQL statement:
+/* insert com.example.helloworld.core.Person */ insert into people (id, fullName, jobTitle) values (null, ?, ?) [42102-182]
+01-03 16:47:10 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "PEOPLE" not found; SQL statement:
+/* insert com.example.helloworld.core.Person */ insert into people (id, fullName, jobTitle) values (null, ?, ?) [42102-182]
+01-03 16:47:31 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "PEOPLE" not found; SQL statement:
+/* insert com.example.helloworld.core.Person */ insert into people (id, fullName, jobTitle) values (null, ?, ?) [42102-182]
+01-03 16:47:31 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "PEOPLE" not found; SQL statement:
+/* insert com.example.helloworld.core.Person */ insert into people (id, fullName, jobTitle) values (null, ?, ?) [42102-182]
+01-03 16:47:37 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "PEOPLE" not found; SQL statement:
+/* named HQL query com.example.helloworld.core.Person.findAll */ select person0_.id as id1_0_, person0_.fullName as fullName2_0_, person0_.jobTitle as jobTitle3_0_ from people person0_ [42102-182]
+01-03 16:49:47 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "PEOPLE" not found; SQL statement:
+/* insert com.example.helloworld.core.Person */ insert into people (id, fullName, jobTitle) values (null, ?, ?) [42102-182]
+01-03 16:49:47 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "PEOPLE" not found; SQL statement:
+/* insert com.example.helloworld.core.Person */ insert into people (id, fullName, jobTitle) values (null, ?, ?) [42102-182]
+01-03 16:50:05 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "PEOPLE" not found; SQL statement:
+/* named HQL query com.example.helloworld.core.Person.findAll */ select person0_.id as id1_0_, person0_.fullName as fullName2_0_, person0_.jobTitle as jobTitle3_0_ from people person0_ [42102-182]
