@@ -9,8 +9,13 @@
         <import resource="classpath:META-INF/cxf/cxf.xml" />
 
         <jaxws:endpoint 
-          id="helloWorld" 
-          implementor="uk.egov.identity.HelloWorldImpl" 
-          address="/HelloWorld" />
+              id="helloWorld"
+              implementor="uk.egov.identity.HelloWorldImpl"
+              address="/HelloWorld" />
+    
+        <jaxws:endpoint
+            id="person"
+            implementor="uk.egov.identity.Person"
+            address="/Person"/>
           
 </beans>
