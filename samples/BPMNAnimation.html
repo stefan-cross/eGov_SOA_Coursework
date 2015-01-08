@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)file:///Users/stefancross/Desktop/bpmn.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<title>Animation</title>
+</head>
+<body style="overflow: hidden;">
+<div id="layerContainer" style="position:absolute; left:0px; top:0px;">
+<canvas id="canvas" width="1280" height="595">
+</canvas></div>
+<div id="toolbarBackground" style="position: absolute; left: 0px; top: 595px; width: 1280px; height: 40px; background-image: url(file:///Users/stefancross/Desktop/img/ToolbarBackground.png); background-repeat: repeat-x;"></div>
+<div id="progressBackground" style="position: absolute; left: 145px; top: 595px; width: 1128px; height: 40px; background-image: url(file:///Users/stefancross/Desktop/img/progressBackground.png); background-repeat: repeat-x;"></div>
+<div id="progressBarBackground" style="position: absolute; left: 145px; top: 595px; width: 1128px; height: 40px; background-image: url(file:///Users/stefancross/Desktop/img/ProgressBarBackground.png); background-repeat: repeat-x;"></div>
+<div id="progressBarHead" style="position: absolute; left: 145px; top: 595px; width: 17px; height: 40px; background-image: url(file:///Users/stefancross/Desktop/img/ProgressBarHead.png); background-repeat: repeat-x;"></div>
+<div id="progressBarTail" style="position: absolute; left: 1256px; top: 595px; width: 17px; height: 40px; background-image: url(file:///Users/stefancross/Desktop/img/ProgressBarTail.png); background-repeat: repeat-x;"></div>
+<div id="progressBarProgressBackground" style="position: absolute; left: 164px; top: 595px; width: 1090px; height: 40px; background-image: url(file:///Users/stefancross/Desktop/img/ProgressBarProgressBackground.png); background-repeat: repeat-x;"></div>
+<div id="progressBarProgressHead" style="position: absolute; left: 162px; top: 595px; width: 2px; height: 40px; background-image: url(file:///Users/stefancross/Desktop/img/ProgressBarProgressHead.png); background-repeat: repeat-x;"></div>
+<div id="progressBarProgressTail" style="position: absolute; left: 1254px; top: 595px; width: 2px; height: 40px; background-image: url(file:///Users/stefancross/Desktop/img/ProgressBarProgressTail.png); background-repeat: repeat-x;"></div>
+<div id="progressBarProgressDone" style="position: absolute; left: 164px; top: 595px; width: 1090px; height: 40px; background-image: url(file:///Users/stefancross/Desktop/img/ProgressBarProgressDone.png); background-repeat: repeat-x;"></div>
+<img id="pause" title="Pause (Ctrl + P)" src="./BPMNAnimation_files/Pause.png" onmousedown="performMousePressed(&#39;pause&#39;, &#39;img/Pause.png&#39;, &#39;img/PausePressed.png&#39;, &#39;img/DisablePause.png&#39;);" onmouseup="performMouseUp(&#39;pause&#39;, &#39;img/Pause.png&#39;, &#39;img/PausePressed.png&#39;, &#39;img/DisablePause.png&#39;);" onmouseout="performMouseOut(&#39;pause&#39;, &#39;img/Pause.png&#39;, &#39;img/PausePressed.png&#39;, &#39;img/DisablePause.png&#39;);" style="position: absolute; left: 39px; top: 598px; display: none;" width="32" height="32">
+<img id="play" title="Play (Ctrl + P)" src="./BPMNAnimation_files/Play.png" onmousedown="performMousePressed(&#39;play&#39;, &#39;img/Play.png&#39;, &#39;img/PlayPressed.png&#39;, &#39;img/DisablePlay.png&#39;);" onmouseup="performMouseUp(&#39;play&#39;, &#39;img/Play.png&#39;, &#39;img/PlayPressed.png&#39;, &#39;img/DisablePlay.png&#39;);" onmouseout="performMouseOut(&#39;play&#39;, &#39;img/Play.png&#39;, &#39;img/PlayPressed.png&#39;, &#39;img/DisablePlay.png&#39;);" style="position: absolute; left: 39px; top: 598px; display: inline;" width="32" height="32">
+<img id="stop" title="Stop (Ctrl + Space)" src="./BPMNAnimation_files/Stop.png" onmousedown="performMousePressed(&#39;stop&#39;, &#39;img/Stop.png&#39;, &#39;img/StopPressed.png&#39;, &#39;img/DisableStop.png&#39;);" onmouseup="performMouseUp(&#39;stop&#39;, &#39;img/Stop.png&#39;, &#39;img/StopPressed.png&#39;, &#39;img/DisableStop.png&#39;);" onmouseout="performMouseOut(&#39;stop&#39;, &#39;img/Stop.png&#39;, &#39;img/StopPressed.png&#39;, &#39;img/DisableStop.png&#39;);" style="position: absolute; left: 76px; top: 602px;" width="26" height="26">
+<img id="previous" title="Backward (Ctrl + Left)" src="./BPMNAnimation_files/Previous.png" onmousedown="performMousePressed(&#39;previous&#39;, &#39;img/Previous.png&#39;, &#39;img/PreviousPressed.png&#39;, &#39;img/DisablePrevious.png&#39;);" onmouseup="performMouseUp(&#39;previous&#39;, &#39;img/Previous.png&#39;, &#39;img/PreviousPressed.png&#39;, &#39;img/DisablePrevious.png&#39;);" onmouseout="performMouseOut(&#39;previous&#39;, &#39;img/Previous.png&#39;, &#39;img/PreviousPressed.png&#39;, &#39;img/DisablePrevious.png&#39;);" style="position: absolute; left: 8px; top: 602px;" width="26" height="26">
+<img id="next" title="Forward (Ctrl + Right)" src="./BPMNAnimation_files/DisableNext.png" onmousedown="performMousePressed(&#39;next&#39;, &#39;img/Next.png&#39;, &#39;img/NextPressed.png&#39;, &#39;img/DisableNext.png&#39;);" onmouseup="performMouseUp(&#39;next&#39;, &#39;img/Next.png&#39;, &#39;img/NextPressed.png&#39;, &#39;img/DisableNext.png&#39;);" onmouseout="performMouseOut(&#39;next&#39;, &#39;img/Next.png&#39;, &#39;img/NextPressed.png&#39;, &#39;img/DisableNext.png&#39;);" style="position: absolute; left: 107px; top: 602px;" width="26" height="26">
+<script type="text/javascript">
+function P(x, y) {
+	this.x = x || 0;
+	this.y = y || 0;
+};
+function AP(type, x, y) {
+	this.type = type || 0;
+	this.x = x || 0;
+	this.y = y || 0;
+};
+window.refreshAnimationLayer = (function(callback) {
+	return window.requestAnimationFrame ||
+		window.webkitRequestAnimationFrame ||
+		window.mozRequestAnimationFrame ||
+		window.oRequestAnimationFrame ||
+		window.msRequestAnimationFrame ||
+		function(callback) {
+			window.setTimeout(callback, 1000 / 30);
+		};
+	}) ();
+var loading = true;
+var imageLoadingText = "";
+var audioLoadingText = "";
+var frameIndex = 0;
+var audioFrameIndex = -1;
+var frameCount = 106;
+var playTo = frameCount - 1;
+var playing = false;
+var paused = false;
+var playingAudio = false;
+var audioQuque = new Array();
+var playingVoice = null;
+var previousIndex = 0;
+var nextIndex = 0;
+function nextFrame() {
+	if (playing == true && paused == false) {
+		audioQuque = new Array();
+		if (playingVoice) {
+			playingVoice.pause();
+			playingVoice.currentTime = 0;
+			playingVoice = null;
+			playingAudio = false;
+		}
+		if (frameIndex < playTo) {
+			frameIndex++;
+		} else if (frameIndex > playTo) {
+			frameIndex--;
+		} else {
+			if (frameIndex == 0 || frameIndex == frameCount - 1) {
+				playing = false;
+				paused = false;
+				stopEvent();
+			} else {
+				if (!playingAudio) {
+		animateV();
+				}
+				paused = true;
+				pauseEvent();
+			}
+		}
+	}
+}
+function nextAudio() {
+	if (audioQuque.length > 0) {
+		var voice = audioQuque.shift();
+		playingVoice = voice;
+		voice.play();
+		voice.setAttribute("onended", "nextAudio()");
+	} else {
+		playingVoice = null;
+		playingAudio = false;
+	}
+}
+var viewportWidth;
+var viewportHeight;
+function layout() {
+	{ // previous
+		var previous = document.getElementById("previous");
+		previous.style.left = "8px";
+		previous.style.top = (viewportHeight - 33) + "px";
+		previous.width = 26;
+		previous.height = 26;
+	}
+	{ // pause
+		var pause = document.getElementById("pause");
+		pause.style.left = "39px";
+		pause.style.top = (viewportHeight - 37) + "px";
+		pause.width = 32;
+		pause.height = 32;
+	}
+	{ // play
+		var play = document.getElementById("play");
+		play.style.left = "39px";
+		play.style.top = (viewportHeight - 37) + "px";
+		play.width = 32;
+		play.height = 32;
+	}
+	{ // stop
+		var stop = document.getElementById("stop");
+		stop.style.left = "76px";
+		stop.style.top = (viewportHeight - 33) + "px";
+		stop.width = 26;
+		stop.height = 26;
+	}
+	{ // next
+		var next = document.getElementById("next");
+		next.style.left = "107px";
+		next.style.top = (viewportHeight - 33) + "px";
+		next.width = 26;
+		next.height = 26;
+	}
+	{ // progressBackground
+		var progressBackground = document.getElementById("progressBackground");
+		progressBackground.style.left = "145px";
+		progressBackground.style.top = (viewportHeight - 40) + "px";
+		progressBackground.style.width = (viewportWidth - 145 - 7) + "px";
+		progressBackground.style.height = "40px";
+	}
+	{ // progressBarBackground
+		var progressBarBackground = document.getElementById("progressBarBackground");
+		progressBarBackground.style.left = "145px";
+		progressBarBackground.style.top = (viewportHeight - 40) + "px";
+		progressBarBackground.style.width = (viewportWidth - 145 - 7) + "px";
+		progressBarBackground.style.height = "40px";
+	}
+	{ // progressBarHead
+		var progressBarHead = document.getElementById("progressBarHead");
+		progressBarHead.style.left = "145px";
+		progressBarHead.style.top = (viewportHeight - 40) + "px";
+		progressBarHead.style.width = "17px";
+		progressBarHead.style.height = "40px";
+	}
+	{ // progressBarTail
+		var progressBarTail = document.getElementById("progressBarTail");
+		progressBarTail.style.left = (viewportWidth - 24) + "px";
+		progressBarTail.style.top = (viewportHeight - 40) + "px";
+		progressBarTail.style.width = "17px";
+		progressBarTail.style.height = "40px";
+	}
+	{ // progressBarProgressHead
+		var progressBarProgressHead = document.getElementById("progressBarProgressHead");
+		progressBarProgressHead.style.left = "162px";
+		progressBarProgressHead.style.top = (viewportHeight - 40) + "px";
+		progressBarProgressHead.style.width = "2px";
+		progressBarProgressHead.style.height = "40px";
+	}
+	{ // progressBarProgressTail
+		var progressBarProgressTail = document.getElementById("progressBarProgressTail");
+		progressBarProgressTail.style.left = (viewportWidth - 26) + "px";
+		progressBarProgressTail.style.top = (viewportHeight - 40) + "px";
+		progressBarProgressTail.style.width = "2px";
+		progressBarProgressTail.style.height = "40px";
+	}
+	{ // progressBarProgressDone + progressBarProgressBackground
+		var lMinX = 164;
+		var lMaxX = viewportWidth - 26;
+		var lWidth = lMaxX - lMinX;
+		var lPercent = frameIndex / (frameCount - 1);
+		var lDoneWidth = lPercent * lWidth;
+		var progressBarProgressDone = document.getElementById("progressBarProgressDone");
+		progressBarProgressDone.style.left = lMinX + "px";
+		progressBarProgressDone.style.top = (viewportHeight - 40) + "px";
+		progressBarProgressDone.style.width = lDoneWidth + "px";
+		progressBarProgressDone.style.height = "40px";
+		var progressBarProgressBackground = document.getElementById("progressBarProgressBackground");
+		progressBarProgressBackground.style.left = lMinX + "px";
+		progressBarProgressBackground.style.top = (viewportHeight - 40) + "px";
+		progressBarProgressBackground.style.width = lWidth + "px";
+		progressBarProgressBackground.style.height = "40px";
+	}
+	{ // toolbarBackground
+		var toolbarBackground = document.getElementById("toolbarBackground");
+		toolbarBackground.style.top = (viewportHeight - 40) + "px";
+		toolbarBackground.style.width = viewportWidth + "px";
+		toolbarBackground.style.height = "40px";
+	}
+}
+function updateControls() {
+	var previous = document.getElementById("previous");
+	var pause = document.getElementById("pause");
+	var play = document.getElementById("play");
+	var next = document.getElementById("next");
+	var stop = document.getElementById("stop");
+	if (playing == true && paused == false) {
+		pause.style.display = "inline";
+		play.style.display = "none";
+	} else {
+		pause.style.display = "none";
+		play.style.display = "inline";
+		if (loading == true) {
+			if (play.src.indexOf("img/Play.png") >= 0) {
+				play.src = "img/DisablePlay.png";
+			}
+		} else {
+			if (play.src.indexOf("img/DisablePlay.png") >= 0) {
+				play.src = "img/Play.png";
+			}
+		}
+	}
+	if (previousIndex < frameIndex) {
+		if (previous.src.indexOf("img/DisablePrevious.png") >= 0) {
+			previous.src = "img/Previous.png";
+		}
+	} else {
+		previous.src = "img/DisablePrevious.png";
+	}
+	if (nextIndex > frameIndex) {
+		if (next.src.indexOf("img/DisableNext.png") >= 0) {
+			next.src = "img/Next.png";
+		}
+	} else {
+		next.src = "img/DisableNext.png";
+	}
+	if (playing == true || paused == true) {
+		if (stop.src.indexOf("img/DisableStop.png") >= 0) {
+			stop.src = "img/Stop.png";
+		}
+	} else {
+		if (frameIndex == 0) {
+			if (stop.src.indexOf("img/Stop.png") >= 0) {
+				stop.src = "img/DisableStop.png";
+			}
+		} else if (frameIndex == frameCount - 1) {
+			if (stop.src.indexOf("img/DisableStop.png") >= 0) {
+				stop.src = "img/Stop.png";
+			}
+		}
+	}
+}
+function previousEvent() {
+}
+function pauseEvent() {
+}
+function playEvent() {
+}
+function nextEvent() {
+}
+function stopEvent() {
+}
+var IE;
+if (document.all) {
+	IE = true;
+} else {
+	IE = false;
+}
+document.onkeydown = documentKeyDown;
+function documentKeyDown(e) {
+	if (loading == true) {
+		return;
+	}
+	if (e.ctrlKey == true) {
+		if (e.keyCode == 80 || e.keyCode == 112) { // P
+			if (e.preventDefault) {
+				e.preventDefault();
+			}
+			if (playing == true && paused == false) {
+		animateV();
+				paused = true;
+				pauseEvent();
+			} else {
+				audioQuque = new Array();
+				if (playingVoice) {
+					playingVoice.pause();
+					playingVoice.currentTime = 0;
+					playingVoice = null;
+					playingAudio = false;
+				}
+				playTo = frameCount - 1;
+				if (paused == true) {
+					paused = false;
+				} else {
+					playing = true;
+					paused = false;
+					frameIndex = 0;
+					layerOffsetX = 0;
+					layerOffsetY = 0;
+				}
+				playEvent();
+			}
+		} else if (e.keyCode == 37) { // Left
+			playTo = previousIndex;
+			playing = true;
+			paused = false;
+			previousEvent();
+		} else if (e.keyCode == 39) { // Right
+			playTo = nextIndex;
+			playing = true;
+			paused = false;
+			nextEvent();
+		} else if (e.keyCode == 32) { // Space
+			audioQuque = new Array();
+			if (playingVoice) {
+				playingVoice.pause();
+				playingVoice.currentTime = 0;
+				playingVoice = null;
+				playingAudio = false;
+			}
+			playing = false;
+			paused = false;
+			frameIndex = 0;
+			layerOffsetX = 0;
+			layerOffsetY = 0;
+			playEvent();
+		}
+	}
+}
+document.onmousemove = documentMouseMove;
+document.onmousedown = documentMouseDown;
+document.onmouseup = documentMouseUp;
+var mouseX = 0;
+var mouseY = 0;
+function documentMouseMove(e) {
+	if (IE) {
+		mouseX = event.clientX + document.body.scrollLeft;
+		mouseY = event.clientY + document.body.scrollTop;
+	} else {
+		mouseX = e.pageX;
+		mouseY = e.pageY;
+	}  
+	if (mouseX < 0) {
+		mouseX = 0;
+	}
+	if (mouseY < 0) {
+		mouseY = 0;
+	}
+	performDragLayer();
+	performDragProgress();
+}
+function documentMouseDown(e) {
+	if (loading == true) {
+		return;
+	}
+	{ // Layer
+		var lMinX = 0;
+		var lMaxX = viewportWidth;
+		var lMinY = 0;
+		var lMaxY = viewportHeight - 40;
+		if (mouseX >= lMinX && mouseY >= lMinY && mouseX <= lMaxX && mouseY <= lMaxY) {
+			if (e.preventDefault) {
+				e.preventDefault();
+			}
+			startDragLayer();
+		}
+	}
+	{ // Progress
+		var lMinX = 164;
+		var lMaxX = viewportWidth - 26;
+		var lMinY = viewportHeight - 24;
+		var lMaxY = lMinY + 11;
+		if (mouseX >= lMinX && mouseY >= lMinY && mouseX <= lMaxX && mouseY <= lMaxY) {
+			if (e.preventDefault) {
+				e.preventDefault();
+			}
+			startDragProgress();
+		}
+	}
+}
+function documentMouseUp(e) {
+	if (loading == true) {
+		return;
+	}
+	documentMouseMove(e);
+	endDragLayer();
+	endDragProgress();
+}
+var layerTranslateX = 0;
+var layerTranslateY = 0;
+var layerOffsetY = 0;
+var layerOffsetX = 0;
+var layerOffsetY = 0;
+var draggingLayer = false;
+var layerOffsetTempX = 0;
+var layerOffsetTempY = 0;
+var layerPressX = 0;
+var layerPressY = 0;
+var lastScroll = new P(12, 182);
+function startDragLayer() {
+	if (draggingLayer == false) {
+		layerPressX = mouseX
+		layerPressY = mouseY
+		layerOffsetTempX = layerOffsetX
+		layerOffsetTempY = layerOffsetY
+		draggingLayer = true;
+	}
+}
+function endDragLayer() {
+	if (draggingLayer) {
+		draggingLayer = false;
+	}
+}
+function performDragLayer() {
+	if (draggingLayer) {
+		layerOffsetX = layerOffsetTempX + mouseX - layerPressX;
+		layerOffsetY = layerOffsetTempY + mouseY - layerPressY;
+	}
+}
+var draggingProgress = false;
+function startDragProgress() {
+	if (draggingProgress == false) {
+		draggingProgress = true;
+		audioQuque = new Array();
+		if (playingVoice) {
+			playingVoice.pause();
+			playingVoice.currentTime = 0;
+			playingVoice = null;
+			playingAudio = false;
+		}
+	}
+}
+function endDragProgress() {
+	if (draggingProgress) {
+		draggingProgress = false;
+	}
+}
+function performDragProgress() {
+	if (draggingProgress) {
+		audioQuque = new Array();
+		if (playingVoice) {
+			playingVoice.pause();
+			playingVoice.currentTime = 0;
+			playingVoice = null;
+			playingAudio = false;
+		}
+		var lMinX = 164;
+		var lMaxX = viewportWidth - 26;
+		var lX = mouseX;
+		lX = Math.max(lX , lMinX);
+		lX = Math.min(lX , lMaxX);
+		var lPercent = (lX - lMinX) / (lMaxX - lMinX);
+		playing = false;
+		paused = false;
+		frameIndex = Math.round((frameCount - 1) * lPercent);
+	}
+}
+function performMousePressed(id, path, pressedPath, disablePath) {
+	if (loading == true) {
+		return;
+	}
+	var image = document.getElementById(id);
+	if (image.src.indexOf(disablePath) < 0) {
+		image.src = pressedPath;
+	}
+}
+function performMouseUp(id, path, pressedPath, disablePath) {
+	if (loading == true) {
+		return;
+	}
+	var image = document.getElementById(id);
+	if (image.src.indexOf(pressedPath) >= 0) {
+		image.src = path;
+		if ("previous" == id) {
+			playTo = previousIndex;
+			playing = true;
+			paused = false;
+			previousEvent();
+		} else if ("pause" == id) {
+		animateV();
+			paused = true;
+			pauseEvent();
+		} else if ("play" == id) {
+			audioQuque = new Array();
+			if (playingVoice) {
+				playingVoice.pause();
+				playingVoice.currentTime = 0;
+				playingVoice = null;
+				playingAudio = false;
+			}
+			playTo = frameCount - 1;
+			if (paused == true) {
+				paused = false;
+			} else {
+				playing = true;
+				paused = false;
+				frameIndex = 0;
+				layerOffsetX = 0;
+				layerOffsetY = 0;
+			}
+			playEvent();
+		} else if ("next" == id) {
+			playTo = nextIndex;
+			playing = true;
+			paused = false;
+			nextEvent();
+		} else if ("stop" == id) {
+			audioQuque = new Array();
+			if (playingVoice) {
+				playingVoice.pause();
+				playingVoice.currentTime = 0;
+				playingVoice = null;
+				playingAudio = false;
+			}
+			playing = false;
+			paused = false;
+			frameIndex = 0;
+			layerOffsetX = 0;
+			layerOffsetY = 0;
+			stopEvent();
+		}
+	}
+}
+function performMouseOut(id, path, pressedPath, disablePath) {
+	if (loading == true) {
+		return;
+	}
+	var image = document.getElementById(id);
+	if (image.src.indexOf(pressedPath) >= 0) {
+		image.src = path;
+	}
+}
+function animate() {
+	// detect viewport size
+	if (typeof window.innerWidth != 'undefined') {
+		viewportWidth = window.innerWidth,
+		viewportHeight = window.innerHeight
+	} else if (typeof document.documentElement != 'undefined' && typeof document.documentElement.clientWidth != 'undefined' && document.documentElement.clientWidth != 0) {
+		viewportWidth = document.documentElement.clientWidth,
+		viewportHeight = document.documentElement.clientHeight
+	} else {
+		viewportWidth = document.getElementsByTagName('body')[0].clientWidth,
+		viewportHeight = document.getElementsByTagName('body')[0].clientHeight
+	}
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	// context.clearRect(0, 0, canvas.width, canvas.height);
+		animateS();
+	layout();
+	updateControls();
+	if (loading == true) {
+		var layerContainer = document.getElementById("layerContainer");
+		layerContainer.style.left = "0px";
+		layerContainer.style.top = "0px";
+		canvas.width = viewportWidth;
+		canvas.height = viewportHeight;
+		var loadingText = "Loading... " + imageLoadingText + " " + audioLoadingText;
+		var textMetrics = context.measureText(loadingText);
+		context.fillText(loadingText, (viewportWidth - textMetrics.width) / 2, (viewportHeight - 40) / 2);
+	} else {
+		var viewBoundsX = (layerTranslateX - layerOffsetX);
+		var viewBoundsY = (layerTranslateY - layerOffsetY);
+		var viewBoundsX2 = viewBoundsX + viewportWidth;
+		var viewBoundsY2 = viewBoundsY + viewportHeight - 40;
+		var lBgX = 0;
+		var lBgY = 0;
+		for (var lRow = 0; lRow < 1; lRow++) {
+			lBgX = 0;
+			var lBgWidth;
+			var lBgHeight;
+			if (lRow == 0) {
+				lBgHeight = 379 - lBgY;
+			} else {
+				lBgHeight = 1000;
+			}
+			for (var lColumn = 0; lColumn < 1; lColumn++) {
+				if (lColumn == 0) {
+					lBgWidth = 699 - lBgX;
+				} else {
+					lBgWidth = 1000;
+				}
+				var lBgTempMinX = Math.min(viewBoundsX, lBgX);
+				var lBgTempMaxX = Math.min(viewBoundsX2, lBgX + lBgWidth);
+				var lBgTempMinY = Math.min(viewBoundsY, lBgY);
+				var lBgTempMaxY = Math.min(viewBoundsY2, lBgY + lBgHeight);
+				var lXOverlap = (lBgTempMaxX - lBgTempMinX) < (lBgWidth + viewportWidth);
+				var lYOverlap = (lBgTempMaxY - lBgTempMinY) < (lBgHeight + viewportHeight);
+				if (lXOverlap && lYOverlap) {
+					try {
+						var lBgId = "BG_" + lRow + "_" + lColumn;
+						context.drawImage(eval(lBgId), lBgX, lBgY, lBgWidth, lBgHeight);
+					} catch (e) {}
+				}
+				lBgX += 1000;
+			}
+			lBgY += 1000;
+		}
+		animateF1();
+		animateF2();
+		animateF3();
+		animateF4();
+		animateF5();
+		animateL1();
+		animateL2();
+		animateL3();
+		animateL4();
+		animateL5();
+		animateB();
+		animateD();
+		animatePI();
+		animateNI();
+	}
+	window.refreshAnimationLayer(function() {
+		animate();
+	});
+}
+window.onload = function() {
+	var canvas = document.getElementById("canvas");
+	if (!!(canvas.getContext && canvas.getContext("2d")) == false) {
+		document.write("Sorry, your browser does not support HTML5.<br>Please upgrade your browser or try another browser.");
+		return;
+	}
+	var context = canvas.getContext("2d");
+	context.save();
+	animate();
+	setInterval(nextFrame, 500 / 10);
+};
+var BG_0_0 = new Image();
+try {
+BG_0_0.src = "img/BG_0_0.png";
+} catch (e) {}
+</script>
+<script type="text/javascript">
+var xB = new Array();
+var B = new Array();
+function animateB() {
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	context.fillStyle = "rgba(51, 51, 51, 1.0)";
+	var radius = 5;
+	var balls = B[frameIndex];
+	for(var i = 0; i < balls.length; i++) {
+		var ball = balls[i];
+		context.beginPath();
+		context.arc(ball.x, ball.y, radius, 0, 2 * Math.PI, false);
+		context.fill();
+	}
+}
+var xL1 = new Array();
+var L1 = new Array();
+function animateL1() {
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	context.strokeStyle = "rgba(189, 64, 255, 1.0)";
+	context.lineWidth = 3;
+	var areas = L1[frameIndex];
+	for(var i = 0; i < areas.length; i++) {
+		var area = areas[i];
+		context.beginPath();
+		for(var j = 0; j < area.length; j++) {
+			var areaPoint = area[j];
+			if (areaPoint.type == 0) {
+				context.moveTo(areaPoint.x, areaPoint.y);
+			} else if (areaPoint.type == 1) {
+				context.lineTo(areaPoint.x, areaPoint.y);
+			} else if (areaPoint.type == 4) {
+				context.closePath();
+			}
+		}
+		context.stroke();
+	}
+}
+var xL2 = new Array();
+var L2 = new Array();
+function animateL2() {
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	context.strokeStyle = "rgba(189, 64, 255, 0.2)";
+	context.lineWidth = 3;
+	var areas = L2[frameIndex];
+	for(var i = 0; i < areas.length; i++) {
+		var area = areas[i];
+		context.beginPath();
+		for(var j = 0; j < area.length; j++) {
+			var areaPoint = area[j];
+			if (areaPoint.type == 0) {
+				context.moveTo(areaPoint.x, areaPoint.y);
+			} else if (areaPoint.type == 1) {
+				context.lineTo(areaPoint.x, areaPoint.y);
+			} else if (areaPoint.type == 4) {
+				context.closePath();
+			}
+		}
+		context.stroke();
+	}
+}
+var xL3 = new Array();
+var L3 = new Array();
+function animateL3() {
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	context.strokeStyle = "rgba(189, 64, 255, 0.4)";
+	context.lineWidth = 3;
+	var areas = L3[frameIndex];
+	for(var i = 0; i < areas.length; i++) {
+		var area = areas[i];
+		context.beginPath();
+		for(var j = 0; j < area.length; j++) {
+			var areaPoint = area[j];
+			if (areaPoint.type == 0) {
+				context.moveTo(areaPoint.x, areaPoint.y);
+			} else if (areaPoint.type == 1) {
+				context.lineTo(areaPoint.x, areaPoint.y);
+			} else if (areaPoint.type == 4) {
+				context.closePath();
+			}
+		}
+		context.stroke();
+	}
+}
+var xL4 = new Array();
+var L4 = new Array();
+function animateL4() {
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	context.strokeStyle = "rgba(189, 64, 255, 0.6)";
+	context.lineWidth = 3;
+	var areas = L4[frameIndex];
+	for(var i = 0; i < areas.length; i++) {
+		var area = areas[i];
+		context.beginPath();
+		for(var j = 0; j < area.length; j++) {
+			var areaPoint = area[j];
+			if (areaPoint.type == 0) {
+				context.moveTo(areaPoint.x, areaPoint.y);
+			} else if (areaPoint.type == 1) {
+				context.lineTo(areaPoint.x, areaPoint.y);
+			} else if (areaPoint.type == 4) {
+				context.closePath();
+			}
+		}
+		context.stroke();
+	}
+}
+var xL5 = new Array();
+var L5 = new Array();
+function animateL5() {
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	context.strokeStyle = "rgba(189, 64, 255, 0.8)";
+	context.lineWidth = 3;
+	var areas = L5[frameIndex];
+	for(var i = 0; i < areas.length; i++) {
+		var area = areas[i];
+		context.beginPath();
+		for(var j = 0; j < area.length; j++) {
+			var areaPoint = area[j];
+			if (areaPoint.type == 0) {
+				context.moveTo(areaPoint.x, areaPoint.y);
+			} else if (areaPoint.type == 1) {
+				context.lineTo(areaPoint.x, areaPoint.y);
+			} else if (areaPoint.type == 4) {
+				context.closePath();
+			}
+		}
+		context.stroke();
+	}
+}
+var xF1 = new Array();
+var F1 = new Array();
+function animateF1() {
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	context.fillStyle = "rgba(155, 0, 255, 0.08)";
+	var areas = F1[frameIndex];
+	for(var i = 0; i < areas.length; i++) {
+		var area = areas[i];
+		context.beginPath();
+		for(var j = 0; j < area.length; j++) {
+			var areaPoint = area[j];
+			if (areaPoint.type == 0) {
+				context.moveTo(areaPoint.x, areaPoint.y);
+			} else if (areaPoint.type == 1) {
+				context.lineTo(areaPoint.x, areaPoint.y);
+			} else if (areaPoint.type == 4) {
+				context.closePath();
+			}
+		}
+		context.closePath();
+		context.fill();
+	}
+}
+var xF2 = new Array();
+var F2 = new Array();
+function animateF2() {
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	context.fillStyle = "rgba(155, 0, 255, 0.16)";
+	var areas = F2[frameIndex];
+	for(var i = 0; i < areas.length; i++) {
+		var area = areas[i];
+		context.beginPath();
+		for(var j = 0; j < area.length; j++) {
+			var areaPoint = area[j];
+			if (areaPoint.type == 0) {
+				context.moveTo(areaPoint.x, areaPoint.y);
+			} else if (areaPoint.type == 1) {
+				context.lineTo(areaPoint.x, areaPoint.y);
+			} else if (areaPoint.type == 4) {
+				context.closePath();
+			}
+		}
+		context.closePath();
+		context.fill();
+	}
+}
+var xF3 = new Array();
+var F3 = new Array();
+function animateF3() {
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	context.fillStyle = "rgba(155, 0, 255, 0.24)";
+	var areas = F3[frameIndex];
+	for(var i = 0; i < areas.length; i++) {
+		var area = areas[i];
+		context.beginPath();
+		for(var j = 0; j < area.length; j++) {
+			var areaPoint = area[j];
+			if (areaPoint.type == 0) {
+				context.moveTo(areaPoint.x, areaPoint.y);
+			} else if (areaPoint.type == 1) {
+				context.lineTo(areaPoint.x, areaPoint.y);
+			} else if (areaPoint.type == 4) {
+				context.closePath();
+			}
+		}
+		context.closePath();
+		context.fill();
+	}
+}
+var xF4 = new Array();
+var F4 = new Array();
+function animateF4() {
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	context.fillStyle = "rgba(155, 0, 255, 0.32)";
+	var areas = F4[frameIndex];
+	for(var i = 0; i < areas.length; i++) {
+		var area = areas[i];
+		context.beginPath();
+		for(var j = 0; j < area.length; j++) {
+			var areaPoint = area[j];
+			if (areaPoint.type == 0) {
+				context.moveTo(areaPoint.x, areaPoint.y);
+			} else if (areaPoint.type == 1) {
+				context.lineTo(areaPoint.x, areaPoint.y);
+			} else if (areaPoint.type == 4) {
+				context.closePath();
+			}
+		}
+		context.closePath();
+		context.fill();
+	}
+}
+var xF5 = new Array();
+var F5 = new Array();
+function animateF5() {
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	context.fillStyle = "rgba(155, 0, 255, 0.4)";
+	var areas = F5[frameIndex];
+	for(var i = 0; i < areas.length; i++) {
+		var area = areas[i];
+		context.beginPath();
+		for(var j = 0; j < area.length; j++) {
+			var areaPoint = area[j];
+			if (areaPoint.type == 0) {
+				context.moveTo(areaPoint.x, areaPoint.y);
+			} else if (areaPoint.type == 1) {
+				context.lineTo(areaPoint.x, areaPoint.y);
+			} else if (areaPoint.type == 4) {
+				context.closePath();
+			}
+		}
+		context.closePath();
+		context.fill();
+	}
+}
+var xS = new Array();
+var S = new Array();
+function animateS() {
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	context.restore();
+	context.save();
+	var scrolls = S[frameIndex];
+	for(var i = 0; i < scrolls.length; i++) {
+		var scroll = scrolls[i];
+		lastScroll = scroll;
+	}
+	var SCROLL_BORDER = 50;
+	var scrollX = lastScroll.x;
+	var scrollY = lastScroll.y;
+	var scrollBoundsX = layerTranslateX + SCROLL_BORDER;
+	var scrollBoundsY = layerTranslateY + SCROLL_BORDER;
+	var scrollBoundsX2 = scrollBoundsX + viewportWidth - SCROLL_BORDER - SCROLL_BORDER;
+	var scrollBoundsY2 = scrollBoundsY + viewportHeight - SCROLL_BORDER - SCROLL_BORDER - 40;
+	if (scrollX < scrollBoundsX) {
+		layerTranslateX -= scrollBoundsX - scrollX;
+	} else if (scrollX > scrollBoundsX2) {
+		layerTranslateX -= scrollBoundsX2 - scrollX;
+	}
+	if (scrollY < scrollBoundsY) {
+		layerTranslateY -= scrollBoundsY - scrollY;
+	} else if (scrollY > scrollBoundsY2) {
+		layerTranslateY -= scrollBoundsY2 - scrollY;
+	}
+	canvas.width = viewportWidth;
+	canvas.height = viewportHeight - 40;
+	context.translate(-(layerTranslateX - layerOffsetX), -(layerTranslateY - layerOffsetY));
+}
+var xD = new Array();
+var D = new Array();
+function animateD() {
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	if (paused == true) {
+		var x = canvas.width + layerTranslateX - layerOffsetX;
+		var y = canvas.height + layerTranslateY - layerOffsetY;
+		var images = D[frameIndex];
+		for(var i = 0; i < images.length; i++) {
+			var image = images[i];
+			var imageWidth = image.width;
+			var imageHeight = image.height;
+			context.drawImage(image, x - imageWidth, y - imageHeight, imageWidth, imageHeight);
+		}
+	}
+}
+// doc image
+var DI1 = new Image(1, 1);
+try {
+	DI1.src = "./img/DI1.png";
+} catch (e) {}
+var xV = new Array();
+var V = new Array();
+function animateV() {
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	if (playingAudio == false && draggingProgress == false) {
+		if (audioFrameIndex != frameIndex) {
+			audioFrameIndex = frameIndex;
+			var voices = V[frameIndex - 1];
+			if (voices) {
+				for(var i = 0; i < voices.length; i++) {
+					var voice = voices[i];
+					audioQuque.push(voice);
+				}
+				if (audioQuque.length > 0) {
+					playingAudio = true;
+					nextAudio();
+				}
+			}
+		}
+	}
+}
+// voice
+var xPI = new Array();
+var PI = new Array();
+function animatePI() {
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	var previousIndexs = PI[frameIndex];
+	for(var i = 0; i < previousIndexs.length; i++) {
+		previousIndex = previousIndexs[i];
+	}
+}
+var xNI = new Array();
+var NI = new Array();
+function animateNI() {
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	var nextIndexs = NI[frameIndex];
+	for(var i = 0; i < nextIndexs.length; i++) {
+		nextIndex = nextIndexs[i];
+	}
+}
+xPI[0] = "|0,0,";
+xNI[0] = "|0,12,";
+xS[1] = "|0,12,182,";
+xD[1] = "|0,DI1,";
+xL2[2] = "|0:0,-10.0,160.0,1,-10.0,204.0,1,34.0,204.0,1,34.0,160.0,4,-82.0,-17.0;";
+xL2[3] = "0,|";
+xL3[3] = "|0:0,-8.0,162.0,1,-8.0,202.0,1,32.0,202.0,1,32.0,162.0,4,-82.0,-17.0;";
+xL3[4] = "0,|";
+xL4[4] = "|0:0,-7.0,163.0,1,-7.0,201.0,1,31.0,201.0,1,31.0,163.0,4,-82.0,-17.0;";
+xL4[5] = "0,|";
+xL5[5] = "|0:0,-5.0,165.0,1,-5.0,199.0,1,29.0,199.0,1,29.0,165.0,4,-82.0,-17.0;";
+xL1[6] = "|0:0,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,166.0,4,-82.0,-17.0;";
+xL5[6] = "0,|";
+xF1[7] = "|0:0,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,166.0,4,-82.0,-17.0;";
+xF1[8] = "0,|";
+xF2[8] = "|0:0,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,166.0,4,-82.0,-17.0;";
+xF2[9] = "0,|";
+xF3[9] = "|0:0,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,166.0,4,-82.0,-17.0;";
+xF3[10] = "0,|";
+xF4[10] = "|0:0,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,166.0,4,-82.0,-17.0;";
+xF4[11] = "0,|";
+xF5[11] = "|0:0,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,166.0,4,-82.0,-17.0;";
+xNI[12] = "0,|0,33,";
+xPI[13] = "0,|0,12,";
+xB[14] = "|0,22,181,";
+xS[14] = "0,|0,22,181,";
+xB[15] = "0,|0,42,181,";
+xS[15] = "0,|0,42,181,";
+xB[16] = "0,|0,62,181,";
+xS[16] = "0,|0,62,181,";
+xB[17] = "0,|0,82,181,";
+xS[17] = "0,|0,82,181,";
+xB[18] = "0,|0,102,181,";
+xS[18] = "0,|0,102,181,";
+xB[19] = "0,|0,105,181,";
+xS[19] = "0,|0,105,181,";
+xB[20] = "0,|";
+xL1[21] = "0,|0:0,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,106.0,191.0,1,106.0,171.0,1,28.0,171.0,1,28.0,166.0,4,-82.0,-17.0;";
+xF5[21] = "0,|0:0,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,106.0,191.0,1,106.0,171.0,1,28.0,171.0,1,28.0,166.0,4,-82.0,-17.0;";
+xS[22] = "0,|0,167,182,";
+xL2[23] = "|0:0,94.0,130.0,1,94.0,171.0,1,106.0,171.0,1,106.0,191.0,1,94.0,191.0,1,94.0,235.0,1,240.0,235.0,1,240.0,130.0,4,-82.0,-17.0;";
+xL2[24] = "0,|";
+xL3[24] = "|0:0,96.0,132.0,1,96.0,171.0,1,106.0,171.0,1,106.0,191.0,1,96.0,191.0,1,96.0,233.0,1,238.0,233.0,1,238.0,132.0,4,-82.0,-17.0;";
+xL3[25] = "0,|";
+xL4[25] = "|0:0,97.0,133.0,1,97.0,171.0,1,106.0,171.0,1,106.0,191.0,1,97.0,191.0,1,97.0,232.0,1,237.0,232.0,1,237.0,133.0,4,-82.0,-17.0;";
+xL4[26] = "0,|";
+xL5[26] = "|0:0,99.0,135.0,1,99.0,171.0,1,106.0,171.0,1,106.0,191.0,1,99.0,191.0,1,99.0,230.0,1,235.0,230.0,1,235.0,135.0,4,-82.0,-17.0;";
+xL1[27] = "|1:0,100.0,136.0,1,100.0,171.0,1,106.0,171.0,1,106.0,191.0,1,100.0,191.0,1,100.0,229.0,1,234.0,229.0,1,234.0,136.0,4,-82.0,-17.0;";
+xL5[27] = "0,|";
+xF1[28] = "|0:0,100.0,136.0,1,100.0,171.0,1,106.0,171.0,1,106.0,191.0,1,100.0,191.0,1,100.0,229.0,1,234.0,229.0,1,234.0,136.0,4,-82.0,-17.0;";
+xF1[29] = "0,|";
+xF2[29] = "|0:0,100.0,136.0,1,100.0,171.0,1,106.0,171.0,1,106.0,191.0,1,100.0,191.0,1,100.0,229.0,1,234.0,229.0,1,234.0,136.0,4,-82.0,-17.0;";
+xF2[30] = "0,|";
+xF3[30] = "|0:0,100.0,136.0,1,100.0,171.0,1,106.0,171.0,1,106.0,191.0,1,100.0,191.0,1,100.0,229.0,1,234.0,229.0,1,234.0,136.0,4,-82.0,-17.0;";
+xF3[31] = "0,|";
+xF4[31] = "|0:0,100.0,136.0,1,100.0,171.0,1,106.0,171.0,1,106.0,191.0,1,100.0,191.0,1,100.0,229.0,1,234.0,229.0,1,234.0,136.0,4,-82.0,-17.0;";
+xF4[32] = "0,|";
+xF5[32] = "|1:0,100.0,136.0,1,100.0,171.0,1,106.0,171.0,1,106.0,191.0,1,100.0,191.0,1,100.0,229.0,1,234.0,229.0,1,234.0,136.0,4,-82.0,-17.0;";
+xL1[33] = "1,0,|0:0,100.0,136.0,1,100.0,171.0,1,28.0,171.0,1,28.0,166.0,1,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,100.0,191.0,1,100.0,229.0,1,234.0,229.0,1,234.0,136.0,4,-82.0,-17.0;";
+xF5[33] = "1,0,|0:0,100.0,136.0,1,100.0,171.0,1,28.0,171.0,1,28.0,166.0,1,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,100.0,191.0,1,100.0,229.0,1,234.0,229.0,1,234.0,136.0,4,-82.0,-17.0;";
+xNI[33] = "0,|0,56,";
+xPI[34] = "0,|0,33,";
+xB[35] = "|0,167,223,1,167,141,";
+xS[35] = "0,|0,167,141,";
+xB[36] = "1,0,|0,167,243,1,167,121,";
+xS[36] = "0,|0,167,121,";
+xB[37] = "1,0,|0,187,243,1,167,109,";
+xS[37] = "0,|0,167,109,";
+xB[38] = "1,0,|0,207,243,1,187,109,";
+xS[38] = "0,|0,187,109,";
+xB[39] = "1,0,|0,227,243,1,207,109,";
+xS[39] = "0,|0,207,109,";
+xB[40] = "1,0,|0,247,243,1,227,109,";
+xS[40] = "0,|0,227,109,";
+xB[41] = "1,0,|0,267,243,1,247,109,";
+xS[41] = "0,|0,247,109,";
+xB[42] = "1,0,|0,271,243,1,267,109,";
+xS[42] = "0,|0,267,109,";
+xB[43] = "1,0,|0,270,109,";
+xS[43] = "0,|0,270,109,";
+xB[44] = "0,|";
+xL1[44] = "0,|0:0,100.0,136.0,1,100.0,171.0,1,28.0,171.0,1,28.0,166.0,1,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,100.0,191.0,1,100.0,229.0,1,157.0,229.0,1,157.0,253.0,1,272.0,253.0,1,272.0,233.0,1,177.0,233.0,1,177.0,229.0,1,234.0,229.0,1,234.0,136.0,4,-82.0,-17.0;";
+xF5[44] = "0,|0:0,100.0,136.0,1,100.0,171.0,1,28.0,171.0,1,28.0,166.0,1,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,100.0,191.0,1,100.0,229.0,1,157.0,229.0,1,157.0,253.0,1,272.0,253.0,1,272.0,233.0,1,177.0,233.0,1,177.0,229.0,1,234.0,229.0,1,234.0,136.0,4,-82.0,-17.0;";
+xL1[45] = "0,|0:0,157.0,99.0,1,157.0,136.0,1,100.0,136.0,1,100.0,171.0,1,28.0,171.0,1,28.0,166.0,1,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,100.0,191.0,1,100.0,229.0,1,157.0,229.0,1,157.0,253.0,1,272.0,253.0,1,272.0,233.0,1,177.0,233.0,1,177.0,229.0,1,234.0,229.0,1,234.0,136.0,1,177.0,136.0,1,177.0,119.0,1,271.0,119.0,1,271.0,99.0,4,-82.0,-17.0;";
+xF5[45] = "0,|0:0,157.0,99.0,1,157.0,136.0,1,100.0,136.0,1,100.0,171.0,1,28.0,171.0,1,28.0,166.0,1,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,100.0,191.0,1,100.0,229.0,1,157.0,229.0,1,157.0,253.0,1,272.0,253.0,1,272.0,233.0,1,177.0,233.0,1,177.0,229.0,1,234.0,229.0,1,234.0,136.0,1,177.0,136.0,1,177.0,119.0,1,271.0,119.0,1,271.0,99.0,4,-82.0,-17.0;";
+xL2[46] = "|0:0,260.0,211.0,1,260.0,233.0,1,272.0,233.0,1,272.0,253.0,1,260.0,253.0,1,260.0,285.0,1,379.0,285.0,1,379.0,211.0,4,-82.0,-17.0;";
+xS[46] = "0,|0,319,115,";
+xL2[47] = "0,|0:0,259.0,77.0,1,259.0,99.0,1,271.0,99.0,1,271.0,119.0,1,259.0,119.0,1,259.0,154.0,1,379.0,154.0,1,379.0,77.0,4,-82.0,-17.0;";
+xL3[47] = "|0:0,262.0,213.0,1,262.0,233.0,1,272.0,233.0,1,272.0,253.0,1,262.0,253.0,1,262.0,283.0,1,377.0,283.0,1,377.0,213.0,4,-82.0,-17.0;";
+xL2[48] = "0,|";
+xL3[48] = "0,|0:0,261.0,79.0,1,261.0,99.0,1,271.0,99.0,1,271.0,119.0,1,261.0,119.0,1,261.0,152.0,1,377.0,152.0,1,377.0,79.0,4,-82.0,-17.0;";
+xL4[48] = "|0:0,263.0,214.0,1,263.0,233.0,1,272.0,233.0,1,272.0,253.0,1,263.0,253.0,1,263.0,282.0,1,376.0,282.0,1,376.0,214.0,4,-82.0,-17.0;";
+xL3[49] = "0,|";
+xL4[49] = "0,|0:0,262.0,80.0,1,262.0,99.0,1,271.0,99.0,1,271.0,119.0,1,262.0,119.0,1,262.0,151.0,1,376.0,151.0,1,376.0,80.0,4,-82.0,-17.0;";
+xL5[49] = "|0:0,265.0,216.0,1,265.0,233.0,1,272.0,233.0,1,272.0,253.0,1,265.0,253.0,1,265.0,280.0,1,374.0,280.0,1,374.0,216.0,4,-82.0,-17.0;";
+xL1[50] = "|1:0,266.0,217.0,1,266.0,233.0,1,272.0,233.0,1,272.0,253.0,1,266.0,253.0,1,266.0,279.0,1,373.0,279.0,1,373.0,217.0,4,-82.0,-17.0;";
+xL4[50] = "0,|";
+xL5[50] = "0,|0:0,264.0,82.0,1,264.0,99.0,1,271.0,99.0,1,271.0,119.0,1,264.0,119.0,1,264.0,149.0,1,374.0,149.0,1,374.0,82.0,4,-82.0,-17.0;";
+xL1[51] = "|2:0,265.0,83.0,1,265.0,99.0,1,271.0,99.0,1,271.0,119.0,1,265.0,119.0,1,265.0,148.0,1,373.0,148.0,1,373.0,83.0,4,-82.0,-17.0;";
+xL5[51] = "0,|";
+xF1[51] = "|0:0,266.0,217.0,1,266.0,233.0,1,272.0,233.0,1,272.0,253.0,1,266.0,253.0,1,266.0,279.0,1,373.0,279.0,1,373.0,217.0,4,-82.0,-17.0;";
+xF1[52] = "0,|0:0,265.0,83.0,1,265.0,99.0,1,271.0,99.0,1,271.0,119.0,1,265.0,119.0,1,265.0,148.0,1,373.0,148.0,1,373.0,83.0,4,-82.0,-17.0;";
+xF2[52] = "|0:0,266.0,217.0,1,266.0,233.0,1,272.0,233.0,1,272.0,253.0,1,266.0,253.0,1,266.0,279.0,1,373.0,279.0,1,373.0,217.0,4,-82.0,-17.0;";
+xF1[53] = "0,|";
+xF2[53] = "0,|0:0,265.0,83.0,1,265.0,99.0,1,271.0,99.0,1,271.0,119.0,1,265.0,119.0,1,265.0,148.0,1,373.0,148.0,1,373.0,83.0,4,-82.0,-17.0;";
+xF3[53] = "|0:0,266.0,217.0,1,266.0,233.0,1,272.0,233.0,1,272.0,253.0,1,266.0,253.0,1,266.0,279.0,1,373.0,279.0,1,373.0,217.0,4,-82.0,-17.0;";
+xF2[54] = "0,|";
+xF3[54] = "0,|0:0,265.0,83.0,1,265.0,99.0,1,271.0,99.0,1,271.0,119.0,1,265.0,119.0,1,265.0,148.0,1,373.0,148.0,1,373.0,83.0,4,-82.0,-17.0;";
+xF4[54] = "|0:0,266.0,217.0,1,266.0,233.0,1,272.0,233.0,1,272.0,253.0,1,266.0,253.0,1,266.0,279.0,1,373.0,279.0,1,373.0,217.0,4,-82.0,-17.0;";
+xF3[55] = "0,|";
+xF4[55] = "0,|0:0,265.0,83.0,1,265.0,99.0,1,271.0,99.0,1,271.0,119.0,1,265.0,119.0,1,265.0,148.0,1,373.0,148.0,1,373.0,83.0,4,-82.0,-17.0;";
+xF5[55] = "|1:0,266.0,217.0,1,266.0,233.0,1,272.0,233.0,1,272.0,253.0,1,266.0,253.0,1,266.0,279.0,1,373.0,279.0,1,373.0,217.0,4,-82.0,-17.0;";
+xL1[56] = "1,0,|0:0,157.0,99.0,1,157.0,136.0,1,100.0,136.0,1,100.0,171.0,1,28.0,171.0,1,28.0,166.0,1,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,100.0,191.0,1,100.0,229.0,1,157.0,229.0,1,157.0,253.0,1,266.0,253.0,1,266.0,279.0,1,373.0,279.0,1,373.0,217.0,1,266.0,217.0,1,266.0,233.0,1,177.0,233.0,1,177.0,229.0,1,234.0,229.0,1,234.0,136.0,1,177.0,136.0,1,177.0,119.0,1,271.0,119.0,1,271.0,99.0,4,-82.0,-17.0;";
+xF4[56] = "0,|";
+xF5[56] = "1,0,|0:0,157.0,99.0,1,157.0,136.0,1,100.0,136.0,1,100.0,171.0,1,28.0,171.0,1,28.0,166.0,1,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,100.0,191.0,1,100.0,229.0,1,157.0,229.0,1,157.0,253.0,1,266.0,253.0,1,266.0,279.0,1,373.0,279.0,1,373.0,217.0,1,266.0,217.0,1,266.0,233.0,1,177.0,233.0,1,177.0,229.0,1,234.0,229.0,1,234.0,136.0,1,177.0,136.0,1,177.0,119.0,1,271.0,119.0,1,271.0,99.0,4,-82.0,-17.0;1:0,265.0,83.0,1,265.0,99.0,1,271.0,99.0,1,271.0,119.0,1,265.0,119.0,1,265.0,148.0,1,373.0,148.0,1,373.0,83.0,4,-82.0,-17.0;";
+xNI[56] = "0,|0,57,";
+xL1[57] = "1,0,|0:0,265.0,83.0,1,265.0,99.0,1,157.0,99.0,1,157.0,136.0,1,100.0,136.0,1,100.0,171.0,1,28.0,171.0,1,28.0,166.0,1,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,100.0,191.0,1,100.0,229.0,1,157.0,229.0,1,157.0,253.0,1,266.0,253.0,1,266.0,279.0,1,373.0,279.0,1,373.0,217.0,1,266.0,217.0,1,266.0,233.0,1,177.0,233.0,1,177.0,229.0,1,234.0,229.0,1,234.0,136.0,1,177.0,136.0,1,177.0,119.0,1,265.0,119.0,1,265.0,148.0,1,373.0,148.0,1,373.0,83.0,4,-82.0,-17.0;";
+xF5[57] = "1,0,|0:0,265.0,83.0,1,265.0,99.0,1,157.0,99.0,1,157.0,136.0,1,100.0,136.0,1,100.0,171.0,1,28.0,171.0,1,28.0,166.0,1,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,100.0,191.0,1,100.0,229.0,1,157.0,229.0,1,157.0,253.0,1,266.0,253.0,1,266.0,279.0,1,373.0,279.0,1,373.0,217.0,1,266.0,217.0,1,266.0,233.0,1,177.0,233.0,1,177.0,229.0,1,234.0,229.0,1,234.0,136.0,1,177.0,136.0,1,177.0,119.0,1,265.0,119.0,1,265.0,148.0,1,373.0,148.0,1,373.0,83.0,4,-82.0,-17.0;";
+xPI[57] = "0,|0,56,";
+xNI[57] = "0,|0,83,";
+xB[58] = "|0,367,247,";
+xPI[58] = "0,|0,57,";
+xB[59] = "0,|0,367,115,1,387,247,";
+xS[59] = "0,|0,367,115,";
+xB[60] = "1,0,|0,387,115,1,407,247,";
+xS[60] = "0,|0,387,115,";
+xB[61] = "1,0,|0,407,115,1,427,247,";
+xS[61] = "0,|0,407,115,";
+xB[62] = "1,0,|0,427,115,1,447,247,";
+xS[62] = "0,|0,427,115,";
+xB[63] = "1,0,|0,447,115,1,467,247,";
+xS[63] = "0,|0,447,115,";
+xB[64] = "1,0,|0,467,115,1,487,247,";
+xS[64] = "0,|0,467,115,";
+xB[65] = "1,0,|0,487,115,1,507,247,";
+xS[65] = "0,|0,487,115,";
+xB[66] = "1,0,|0,507,115,1,526,247,";
+xS[66] = "0,|0,507,115,";
+xB[67] = "1,0,|0,526,115,1,526,227,";
+xS[67] = "0,|0,526,115,";
+xB[68] = "1,0,|0,526,135,1,526,207,";
+xS[68] = "0,|0,526,135,";
+xB[69] = "1,0,|0,526,155,1,526,202,";
+xS[69] = "0,|0,526,155,";
+xB[70] = "1,0,|0,526,161,";
+xS[70] = "0,|0,526,161,";
+xB[71] = "0,|";
+xL1[71] = "0,|0:0,265.0,83.0,1,265.0,99.0,1,157.0,99.0,1,157.0,136.0,1,100.0,136.0,1,100.0,171.0,1,28.0,171.0,1,28.0,166.0,1,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,100.0,191.0,1,100.0,229.0,1,157.0,229.0,1,157.0,253.0,1,266.0,253.0,1,266.0,279.0,1,373.0,279.0,1,373.0,257.0,1,536.0,257.0,1,536.0,202.0,1,516.0,202.0,1,516.0,237.0,1,373.0,237.0,1,373.0,217.0,1,266.0,217.0,1,266.0,233.0,1,177.0,233.0,1,177.0,229.0,1,234.0,229.0,1,234.0,136.0,1,177.0,136.0,1,177.0,119.0,1,265.0,119.0,1,265.0,148.0,1,373.0,148.0,1,373.0,83.0,4,-82.0,-17.0;";
+xF5[71] = "0,|0:0,265.0,83.0,1,265.0,99.0,1,157.0,99.0,1,157.0,136.0,1,100.0,136.0,1,100.0,171.0,1,28.0,171.0,1,28.0,166.0,1,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,100.0,191.0,1,100.0,229.0,1,157.0,229.0,1,157.0,253.0,1,266.0,253.0,1,266.0,279.0,1,373.0,279.0,1,373.0,257.0,1,536.0,257.0,1,536.0,202.0,1,516.0,202.0,1,516.0,237.0,1,373.0,237.0,1,373.0,217.0,1,266.0,217.0,1,266.0,233.0,1,177.0,233.0,1,177.0,229.0,1,234.0,229.0,1,234.0,136.0,1,177.0,136.0,1,177.0,119.0,1,265.0,119.0,1,265.0,148.0,1,373.0,148.0,1,373.0,83.0,4,-82.0,-17.0;";
+xL1[72] = "0,|0:0,265.0,83.0,1,265.0,99.0,1,157.0,99.0,1,157.0,136.0,1,100.0,136.0,1,100.0,171.0,1,28.0,171.0,1,28.0,166.0,1,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,100.0,191.0,1,100.0,229.0,1,157.0,229.0,1,157.0,253.0,1,266.0,253.0,1,266.0,279.0,1,373.0,279.0,1,373.0,257.0,1,536.0,257.0,1,536.0,202.0,1,516.0,202.0,1,516.0,237.0,1,373.0,237.0,1,373.0,217.0,1,266.0,217.0,1,266.0,233.0,1,177.0,233.0,1,177.0,229.0,1,234.0,229.0,1,234.0,136.0,1,177.0,136.0,1,177.0,119.0,1,265.0,119.0,1,265.0,148.0,1,373.0,148.0,1,373.0,125.0,1,516.0,125.0,1,516.0,162.0,1,536.0,162.0,1,536.0,105.0,1,373.0,105.0,1,373.0,83.0,4,-82.0,-17.0;";
+xF5[72] = "0,|0:0,265.0,83.0,1,265.0,99.0,1,157.0,99.0,1,157.0,136.0,1,100.0,136.0,1,100.0,171.0,1,28.0,171.0,1,28.0,166.0,1,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,100.0,191.0,1,100.0,229.0,1,157.0,229.0,1,157.0,253.0,1,266.0,253.0,1,266.0,279.0,1,373.0,279.0,1,373.0,257.0,1,536.0,257.0,1,536.0,202.0,1,516.0,202.0,1,516.0,237.0,1,373.0,237.0,1,373.0,217.0,1,266.0,217.0,1,266.0,233.0,1,177.0,233.0,1,177.0,229.0,1,234.0,229.0,1,234.0,136.0,1,177.0,136.0,1,177.0,119.0,1,265.0,119.0,1,265.0,148.0,1,373.0,148.0,1,373.0,125.0,1,516.0,125.0,1,516.0,162.0,1,536.0,162.0,1,536.0,105.0,1,373.0,105.0,1,373.0,83.0,4,-82.0,-17.0;";
+xL2[73] = "|0:0,440.0,150.0,1,440.0,214.0,1,516.0,214.0,1,516.0,202.0,1,536.0,202.0,1,536.0,214.0,1,614.0,214.0,1,614.0,150.0,1,536.0,150.0,1,536.0,162.0,1,516.0,162.0,1,516.0,150.0,4,-82.0,-17.0;";
+xS[73] = "0,|0,527,182,";
+xL2[74] = "0,|";
+xL3[74] = "|0:0,442.0,152.0,1,442.0,212.0,1,516.0,212.0,1,516.0,202.0,1,536.0,202.0,1,536.0,212.0,1,612.0,212.0,1,612.0,152.0,1,536.0,152.0,1,536.0,162.0,1,516.0,162.0,1,516.0,152.0,4,-82.0,-17.0;";
+xL3[75] = "0,|";
+xL4[75] = "|0:0,443.0,153.0,1,443.0,211.0,1,516.0,211.0,1,516.0,202.0,1,536.0,202.0,1,536.0,211.0,1,611.0,211.0,1,611.0,153.0,1,536.0,153.0,1,536.0,162.0,1,516.0,162.0,1,516.0,153.0,4,-82.0,-17.0;";
+xL4[76] = "0,|";
+xL5[76] = "|0:0,445.0,155.0,1,445.0,209.0,1,516.0,209.0,1,516.0,202.0,1,536.0,202.0,1,536.0,209.0,1,609.0,209.0,1,609.0,155.0,1,536.0,155.0,1,536.0,162.0,1,516.0,162.0,1,516.0,155.0,4,-82.0,-17.0;";
+xL1[77] = "|1:0,446.0,156.0,1,446.0,208.0,1,516.0,208.0,1,516.0,202.0,1,536.0,202.0,1,536.0,208.0,1,608.0,208.0,1,608.0,156.0,1,536.0,156.0,1,536.0,162.0,1,516.0,162.0,1,516.0,156.0,4,-82.0,-17.0;";
+xL5[77] = "0,|";
+xF1[78] = "|0:0,446.0,156.0,1,446.0,208.0,1,516.0,208.0,1,516.0,202.0,1,536.0,202.0,1,536.0,208.0,1,608.0,208.0,1,608.0,156.0,1,536.0,156.0,1,536.0,162.0,1,516.0,162.0,1,516.0,156.0,4,-82.0,-17.0;";
+xF1[79] = "0,|";
+xF2[79] = "|0:0,446.0,156.0,1,446.0,208.0,1,516.0,208.0,1,516.0,202.0,1,536.0,202.0,1,536.0,208.0,1,608.0,208.0,1,608.0,156.0,1,536.0,156.0,1,536.0,162.0,1,516.0,162.0,1,516.0,156.0,4,-82.0,-17.0;";
+xF2[80] = "0,|";
+xF3[80] = "|0:0,446.0,156.0,1,446.0,208.0,1,516.0,208.0,1,516.0,202.0,1,536.0,202.0,1,536.0,208.0,1,608.0,208.0,1,608.0,156.0,1,536.0,156.0,1,536.0,162.0,1,516.0,162.0,1,516.0,156.0,4,-82.0,-17.0;";
+xF3[81] = "0,|";
+xF4[81] = "|0:0,446.0,156.0,1,446.0,208.0,1,516.0,208.0,1,516.0,202.0,1,536.0,202.0,1,536.0,208.0,1,608.0,208.0,1,608.0,156.0,1,536.0,156.0,1,536.0,162.0,1,516.0,162.0,1,516.0,156.0,4,-82.0,-17.0;";
+xF4[82] = "0,|";
+xF5[82] = "|1:0,446.0,156.0,1,446.0,208.0,1,516.0,208.0,1,516.0,202.0,1,536.0,202.0,1,536.0,208.0,1,608.0,208.0,1,608.0,156.0,1,536.0,156.0,1,536.0,162.0,1,516.0,162.0,1,516.0,156.0,4,-82.0,-17.0;";
+xL1[83] = "1,0,|0:0,265.0,119.0,1,265.0,148.0,1,373.0,148.0,1,373.0,125.0,1,516.0,125.0,1,516.0,156.0,1,446.0,156.0,1,446.0,208.0,1,516.0,208.0,1,516.0,237.0,1,373.0,237.0,1,373.0,217.0,1,266.0,217.0,1,266.0,233.0,1,177.0,233.0,1,177.0,229.0,1,234.0,229.0,1,234.0,136.0,1,177.0,136.0,1,177.0,119.0,4,-82.0,-17.0,0,265.0,83.0,1,265.0,99.0,1,157.0,99.0,1,157.0,136.0,1,100.0,136.0,1,100.0,171.0,1,28.0,171.0,1,28.0,166.0,1,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,100.0,191.0,1,100.0,229.0,1,157.0,229.0,1,157.0,253.0,1,266.0,253.0,1,266.0,279.0,1,373.0,279.0,1,373.0,257.0,1,536.0,257.0,1,536.0,208.0,1,608.0,208.0,1,608.0,156.0,1,536.0,156.0,1,536.0,105.0,1,373.0,105.0,1,373.0,83.0,4,-82.0,-17.0;";
+xF5[83] = "1,0,|0:0,265.0,119.0,1,265.0,148.0,1,373.0,148.0,1,373.0,125.0,1,516.0,125.0,1,516.0,156.0,1,446.0,156.0,1,446.0,208.0,1,516.0,208.0,1,516.0,237.0,1,373.0,237.0,1,373.0,217.0,1,266.0,217.0,1,266.0,233.0,1,177.0,233.0,1,177.0,229.0,1,234.0,229.0,1,234.0,136.0,1,177.0,136.0,1,177.0,119.0,4,-82.0,-17.0,0,265.0,83.0,1,265.0,99.0,1,157.0,99.0,1,157.0,136.0,1,100.0,136.0,1,100.0,171.0,1,28.0,171.0,1,28.0,166.0,1,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,100.0,191.0,1,100.0,229.0,1,157.0,229.0,1,157.0,253.0,1,266.0,253.0,1,266.0,279.0,1,373.0,279.0,1,373.0,257.0,1,536.0,257.0,1,536.0,208.0,1,608.0,208.0,1,608.0,156.0,1,536.0,156.0,1,536.0,105.0,1,373.0,105.0,1,373.0,83.0,4,-82.0,-17.0;";
+xNI[83] = "0,|0,84,";
+xPI[84] = "0,|0,83,";
+xNI[84] = "0,|0,103,";
+xB[85] = "|0,602,181,";
+xPI[85] = "0,|0,84,";
+xB[86] = "0,|0,622,181,";
+xS[86] = "0,|0,602,181,";
+xB[87] = "0,|0,642,181,";
+xS[87] = "0,|0,622,181,";
+xB[88] = "0,|0,662,181,";
+xS[88] = "0,|0,642,181,";
+xB[89] = "0,|0,672,181,";
+xS[89] = "0,|0,662,181,";
+xB[90] = "0,|";
+xS[90] = "0,|0,672,181,";
+xL1[91] = "0,|0:0,265.0,119.0,1,265.0,148.0,1,373.0,148.0,1,373.0,125.0,1,516.0,125.0,1,516.0,156.0,1,446.0,156.0,1,446.0,208.0,1,516.0,208.0,1,516.0,237.0,1,373.0,237.0,1,373.0,217.0,1,266.0,217.0,1,266.0,233.0,1,177.0,233.0,1,177.0,229.0,1,234.0,229.0,1,234.0,136.0,1,177.0,136.0,1,177.0,119.0,4,-82.0,-17.0,0,265.0,83.0,1,265.0,99.0,1,157.0,99.0,1,157.0,136.0,1,100.0,136.0,1,100.0,171.0,1,28.0,171.0,1,28.0,166.0,1,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,100.0,191.0,1,100.0,229.0,1,157.0,229.0,1,157.0,253.0,1,266.0,253.0,1,266.0,279.0,1,373.0,279.0,1,373.0,257.0,1,536.0,257.0,1,536.0,208.0,1,608.0,208.0,1,608.0,191.0,1,672.0,191.0,1,672.0,172.0,1,682.0,172.0,1,682.0,171.0,1,608.0,171.0,1,608.0,156.0,1,536.0,156.0,1,536.0,105.0,1,373.0,105.0,1,373.0,83.0,4,-82.0,-17.0;";
+xF5[91] = "0,|0:0,265.0,119.0,1,265.0,148.0,1,373.0,148.0,1,373.0,125.0,1,516.0,125.0,1,516.0,156.0,1,446.0,156.0,1,446.0,208.0,1,516.0,208.0,1,516.0,237.0,1,373.0,237.0,1,373.0,217.0,1,266.0,217.0,1,266.0,233.0,1,177.0,233.0,1,177.0,229.0,1,234.0,229.0,1,234.0,136.0,1,177.0,136.0,1,177.0,119.0,4,-82.0,-17.0,0,265.0,83.0,1,265.0,99.0,1,157.0,99.0,1,157.0,136.0,1,100.0,136.0,1,100.0,171.0,1,28.0,171.0,1,28.0,166.0,1,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,100.0,191.0,1,100.0,229.0,1,157.0,229.0,1,157.0,253.0,1,266.0,253.0,1,266.0,279.0,1,373.0,279.0,1,373.0,257.0,1,536.0,257.0,1,536.0,208.0,1,608.0,208.0,1,608.0,191.0,1,672.0,191.0,1,672.0,172.0,1,682.0,172.0,1,682.0,171.0,1,608.0,171.0,1,608.0,156.0,1,536.0,156.0,1,536.0,105.0,1,373.0,105.0,1,373.0,83.0,4,-82.0,-17.0;";
+xS[92] = "0,|0,682,182,";
+xL2[93] = "|0:0,660.0,160.0,1,660.0,171.0,1,682.0,171.0,1,682.0,172.0,1,672.0,172.0,1,672.0,191.0,1,660.0,191.0,1,660.0,204.0,1,704.0,204.0,1,704.0,160.0,4,-82.0,-17.0;";
+xL2[94] = "0,|";
+xL3[94] = "|0:0,662.0,162.0,1,662.0,171.0,1,682.0,171.0,1,682.0,172.0,1,672.0,172.0,1,672.0,191.0,1,662.0,191.0,1,662.0,202.0,1,702.0,202.0,1,702.0,162.0,4,-82.0,-17.0;";
+xL3[95] = "0,|";
+xL4[95] = "|0:0,663.0,163.0,1,663.0,171.0,1,682.0,171.0,1,682.0,172.0,1,672.0,172.0,1,672.0,191.0,1,663.0,191.0,1,663.0,201.0,1,701.0,201.0,1,701.0,163.0,4,-82.0,-17.0;";
+xL4[96] = "0,|";
+xL5[96] = "|0:0,665.0,165.0,1,665.0,171.0,1,682.0,171.0,1,682.0,172.0,1,672.0,172.0,1,672.0,191.0,1,665.0,191.0,1,665.0,199.0,1,699.0,199.0,1,699.0,165.0,4,-82.0,-17.0;";
+xL1[97] = "|1:0,666.0,166.0,1,666.0,171.0,1,682.0,171.0,1,682.0,172.0,1,672.0,172.0,1,672.0,191.0,1,666.0,191.0,1,666.0,198.0,1,698.0,198.0,1,698.0,166.0,4,-82.0,-17.0;";
+xL5[97] = "0,|";
+xF1[98] = "|0:0,666.0,166.0,1,666.0,171.0,1,682.0,171.0,1,682.0,172.0,1,672.0,172.0,1,672.0,191.0,1,666.0,191.0,1,666.0,198.0,1,698.0,198.0,1,698.0,166.0,4,-82.0,-17.0;";
+xF1[99] = "0,|";
+xF2[99] = "|0:0,666.0,166.0,1,666.0,171.0,1,682.0,171.0,1,682.0,172.0,1,672.0,172.0,1,672.0,191.0,1,666.0,191.0,1,666.0,198.0,1,698.0,198.0,1,698.0,166.0,4,-82.0,-17.0;";
+xF2[100] = "0,|";
+xF3[100] = "|0:0,666.0,166.0,1,666.0,171.0,1,682.0,171.0,1,682.0,172.0,1,672.0,172.0,1,672.0,191.0,1,666.0,191.0,1,666.0,198.0,1,698.0,198.0,1,698.0,166.0,4,-82.0,-17.0;";
+xF3[101] = "0,|";
+xF4[101] = "|0:0,666.0,166.0,1,666.0,171.0,1,682.0,171.0,1,682.0,172.0,1,672.0,172.0,1,672.0,191.0,1,666.0,191.0,1,666.0,198.0,1,698.0,198.0,1,698.0,166.0,4,-82.0,-17.0;";
+xF4[102] = "0,|";
+xF5[102] = "|1:0,666.0,166.0,1,666.0,171.0,1,682.0,171.0,1,682.0,172.0,1,672.0,172.0,1,672.0,191.0,1,666.0,191.0,1,666.0,198.0,1,698.0,198.0,1,698.0,166.0,4,-82.0,-17.0;";
+xL1[103] = "1,0,|0:0,265.0,119.0,1,265.0,148.0,1,373.0,148.0,1,373.0,125.0,1,516.0,125.0,1,516.0,156.0,1,446.0,156.0,1,446.0,208.0,1,516.0,208.0,1,516.0,237.0,1,373.0,237.0,1,373.0,217.0,1,266.0,217.0,1,266.0,233.0,1,177.0,233.0,1,177.0,229.0,1,234.0,229.0,1,234.0,136.0,1,177.0,136.0,1,177.0,119.0,4,-82.0,-17.0,0,265.0,83.0,1,265.0,99.0,1,157.0,99.0,1,157.0,136.0,1,100.0,136.0,1,100.0,171.0,1,28.0,171.0,1,28.0,166.0,1,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,100.0,191.0,1,100.0,229.0,1,157.0,229.0,1,157.0,253.0,1,266.0,253.0,1,266.0,279.0,1,373.0,279.0,1,373.0,257.0,1,536.0,257.0,1,536.0,208.0,1,608.0,208.0,1,608.0,191.0,1,666.0,191.0,1,666.0,198.0,1,698.0,198.0,1,698.0,166.0,1,666.0,166.0,1,666.0,171.0,1,608.0,171.0,1,608.0,156.0,1,536.0,156.0,1,536.0,105.0,1,373.0,105.0,1,373.0,83.0,4,-82.0,-17.0;";
+xF5[103] = "1,0,|0:0,265.0,119.0,1,265.0,148.0,1,373.0,148.0,1,373.0,125.0,1,516.0,125.0,1,516.0,156.0,1,446.0,156.0,1,446.0,208.0,1,516.0,208.0,1,516.0,237.0,1,373.0,237.0,1,373.0,217.0,1,266.0,217.0,1,266.0,233.0,1,177.0,233.0,1,177.0,229.0,1,234.0,229.0,1,234.0,136.0,1,177.0,136.0,1,177.0,119.0,4,-82.0,-17.0,0,265.0,83.0,1,265.0,99.0,1,157.0,99.0,1,157.0,136.0,1,100.0,136.0,1,100.0,171.0,1,28.0,171.0,1,28.0,166.0,1,-4.0,166.0,1,-4.0,198.0,1,28.0,198.0,1,28.0,191.0,1,100.0,191.0,1,100.0,229.0,1,157.0,229.0,1,157.0,253.0,1,266.0,253.0,1,266.0,279.0,1,373.0,279.0,1,373.0,257.0,1,536.0,257.0,1,536.0,208.0,1,608.0,208.0,1,608.0,191.0,1,666.0,191.0,1,666.0,198.0,1,698.0,198.0,1,698.0,166.0,1,666.0,166.0,1,666.0,171.0,1,608.0,171.0,1,608.0,156.0,1,536.0,156.0,1,536.0,105.0,1,373.0,105.0,1,373.0,83.0,4,-82.0,-17.0;";
+xNI[103] = "0,|0,104,";
+xPI[104] = "0,|0,103,";
+xNI[104] = "0,|0,105,";
+// B
+for (var i = 0; i < frameCount; i++) {
+	var oldArray;
+	if (i == 0) {
+		oldArray = new Array();
+	} else {
+		oldArray = B[i - 1];
+	}
+	B[i] = oldArray.slice();
+	if (xB[i]) {
+		var removeAddData = xB[i].split("|");
+		var removeData = removeAddData[0];
+		var remove = removeData.split(",");
+		for(var j = 0; j < remove.length - 1; j++) {
+			B[i].splice(remove[j], 1);
+		}
+		var addData = removeAddData[1];
+		var add = addData.split(",");
+		for(var j = 0; j < add.length - 1; j += 3) {
+			B[i].splice(add[j], 0, new P(add[j + 1], add[j + 2]));
+		}
+	}
+}
+xB = null;
+// L1
+for (var i = 0; i < frameCount; i++) {
+	var oldArray;
+	if (i == 0) {
+		oldArray = new Array();
+	} else {
+		oldArray = L1[i - 1];
+	}
+	L1[i] = oldArray.slice();
+	if (xL1[i]) {
+		var removeAddData = xL1[i].split("|");
+		var removeData = removeAddData[0];
+		var remove = removeData.split(",");
+		for(var j = 0; j < remove.length - 1; j++) {
+			L1[i].splice(remove[j], 1);
+		}
+		var addData = removeAddData[1];
+		var add = addData.split(";");
+		for(var j = 0; j < add.length - 1; j++) {
+			var addPositionPointData = add[j].split(":");
+			var addPosition = addPositionPointData[0];
+			var addPointData = addPositionPointData[1];
+			var addPoint = addPointData.split(",");
+			L1[i].splice(addPosition, 0, new Array());
+			for(var k = 0; k < addPoint.length - 1; k += 3) {
+				L1[i][addPosition].push(new AP(addPoint[k], addPoint[k + 1], addPoint[k + 2]));
+			}
+		}
+	}
+}
+xL1 = null;
+// L2
+for (var i = 0; i < frameCount; i++) {
+	var oldArray;
+	if (i == 0) {
+		oldArray = new Array();
+	} else {
+		oldArray = L2[i - 1];
+	}
+	L2[i] = oldArray.slice();
+	if (xL2[i]) {
+		var removeAddData = xL2[i].split("|");
+		var removeData = removeAddData[0];
+		var remove = removeData.split(",");
+		for(var j = 0; j < remove.length - 1; j++) {
+			L2[i].splice(remove[j], 1);
+		}
+		var addData = removeAddData[1];
+		var add = addData.split(";");
+		for(var j = 0; j < add.length - 1; j++) {
+			var addPositionPointData = add[j].split(":");
+			var addPosition = addPositionPointData[0];
+			var addPointData = addPositionPointData[1];
+			var addPoint = addPointData.split(",");
+			L2[i].splice(addPosition, 0, new Array());
+			for(var k = 0; k < addPoint.length - 1; k += 3) {
+				L2[i][addPosition].push(new AP(addPoint[k], addPoint[k + 1], addPoint[k + 2]));
+			}
+		}
+	}
+}
+xL2 = null;
+// L3
+for (var i = 0; i < frameCount; i++) {
+	var oldArray;
+	if (i == 0) {
+		oldArray = new Array();
+	} else {
+		oldArray = L3[i - 1];
+	}
+	L3[i] = oldArray.slice();
+	if (xL3[i]) {
+		var removeAddData = xL3[i].split("|");
+		var removeData = removeAddData[0];
+		var remove = removeData.split(",");
+		for(var j = 0; j < remove.length - 1; j++) {
+			L3[i].splice(remove[j], 1);
+		}
+		var addData = removeAddData[1];
+		var add = addData.split(";");
+		for(var j = 0; j < add.length - 1; j++) {
+			var addPositionPointData = add[j].split(":");
+			var addPosition = addPositionPointData[0];
+			var addPointData = addPositionPointData[1];
+			var addPoint = addPointData.split(",");
+			L3[i].splice(addPosition, 0, new Array());
+			for(var k = 0; k < addPoint.length - 1; k += 3) {
+				L3[i][addPosition].push(new AP(addPoint[k], addPoint[k + 1], addPoint[k + 2]));
+			}
+		}
+	}
+}
+xL3 = null;
+// L4
+for (var i = 0; i < frameCount; i++) {
+	var oldArray;
+	if (i == 0) {
+		oldArray = new Array();
+	} else {
+		oldArray = L4[i - 1];
+	}
+	L4[i] = oldArray.slice();
+	if (xL4[i]) {
+		var removeAddData = xL4[i].split("|");
+		var removeData = removeAddData[0];
+		var remove = removeData.split(",");
+		for(var j = 0; j < remove.length - 1; j++) {
+			L4[i].splice(remove[j], 1);
+		}
+		var addData = removeAddData[1];
+		var add = addData.split(";");
+		for(var j = 0; j < add.length - 1; j++) {
+			var addPositionPointData = add[j].split(":");
+			var addPosition = addPositionPointData[0];
+			var addPointData = addPositionPointData[1];
+			var addPoint = addPointData.split(",");
+			L4[i].splice(addPosition, 0, new Array());
+			for(var k = 0; k < addPoint.length - 1; k += 3) {
+				L4[i][addPosition].push(new AP(addPoint[k], addPoint[k + 1], addPoint[k + 2]));
+			}
+		}
+	}
+}
+xL4 = null;
+// L5
+for (var i = 0; i < frameCount; i++) {
+	var oldArray;
+	if (i == 0) {
+		oldArray = new Array();
+	} else {
+		oldArray = L5[i - 1];
+	}
+	L5[i] = oldArray.slice();
+	if (xL5[i]) {
+		var removeAddData = xL5[i].split("|");
+		var removeData = removeAddData[0];
+		var remove = removeData.split(",");
+		for(var j = 0; j < remove.length - 1; j++) {
+			L5[i].splice(remove[j], 1);
+		}
+		var addData = removeAddData[1];
+		var add = addData.split(";");
+		for(var j = 0; j < add.length - 1; j++) {
+			var addPositionPointData = add[j].split(":");
+			var addPosition = addPositionPointData[0];
+			var addPointData = addPositionPointData[1];
+			var addPoint = addPointData.split(",");
+			L5[i].splice(addPosition, 0, new Array());
+			for(var k = 0; k < addPoint.length - 1; k += 3) {
+				L5[i][addPosition].push(new AP(addPoint[k], addPoint[k + 1], addPoint[k + 2]));
+			}
+		}
+	}
+}
+xL5 = null;
+// F1
+for (var i = 0; i < frameCount; i++) {
+	var oldArray;
+	if (i == 0) {
+		oldArray = new Array();
+	} else {
+		oldArray = F1[i - 1];
+	}
+	F1[i] = oldArray.slice();
+	if (xF1[i]) {
+		var removeAddData = xF1[i].split("|");
+		var removeData = removeAddData[0];
+		var remove = removeData.split(",");
+		for(var j = 0; j < remove.length - 1; j++) {
+			F1[i].splice(remove[j], 1);
+		}
+		var addData = removeAddData[1];
+		var add = addData.split(";");
+		for(var j = 0; j < add.length - 1; j++) {
+			var addPositionPointData = add[j].split(":");
+			var addPosition = addPositionPointData[0];
+			var addPointData = addPositionPointData[1];
+			var addPoint = addPointData.split(",");
+			F1[i].splice(addPosition, 0, new Array());
+			for(var k = 0; k < addPoint.length - 1; k += 3) {
+				F1[i][addPosition].push(new AP(addPoint[k], addPoint[k + 1], addPoint[k + 2]));
+			}
+		}
+	}
+}
+xF1 = null;
+// F2
+for (var i = 0; i < frameCount; i++) {
+	var oldArray;
+	if (i == 0) {
+		oldArray = new Array();
+	} else {
+		oldArray = F2[i - 1];
+	}
+	F2[i] = oldArray.slice();
+	if (xF2[i]) {
+		var removeAddData = xF2[i].split("|");
+		var removeData = removeAddData[0];
+		var remove = removeData.split(",");
+		for(var j = 0; j < remove.length - 1; j++) {
+			F2[i].splice(remove[j], 1);
+		}
+		var addData = removeAddData[1];
+		var add = addData.split(";");
+		for(var j = 0; j < add.length - 1; j++) {
+			var addPositionPointData = add[j].split(":");
+			var addPosition = addPositionPointData[0];
+			var addPointData = addPositionPointData[1];
+			var addPoint = addPointData.split(",");
+			F2[i].splice(addPosition, 0, new Array());
+			for(var k = 0; k < addPoint.length - 1; k += 3) {
+				F2[i][addPosition].push(new AP(addPoint[k], addPoint[k + 1], addPoint[k + 2]));
+			}
+		}
+	}
+}
+xF2 = null;
+// F3
+for (var i = 0; i < frameCount; i++) {
+	var oldArray;
+	if (i == 0) {
+		oldArray = new Array();
+	} else {
+		oldArray = F3[i - 1];
+	}
+	F3[i] = oldArray.slice();
+	if (xF3[i]) {
+		var removeAddData = xF3[i].split("|");
+		var removeData = removeAddData[0];
+		var remove = removeData.split(",");
+		for(var j = 0; j < remove.length - 1; j++) {
+			F3[i].splice(remove[j], 1);
+		}
+		var addData = removeAddData[1];
+		var add = addData.split(";");
+		for(var j = 0; j < add.length - 1; j++) {
+			var addPositionPointData = add[j].split(":");
+			var addPosition = addPositionPointData[0];
+			var addPointData = addPositionPointData[1];
+			var addPoint = addPointData.split(",");
+			F3[i].splice(addPosition, 0, new Array());
+			for(var k = 0; k < addPoint.length - 1; k += 3) {
+				F3[i][addPosition].push(new AP(addPoint[k], addPoint[k + 1], addPoint[k + 2]));
+			}
+		}
+	}
+}
+xF3 = null;
+// F4
+for (var i = 0; i < frameCount; i++) {
+	var oldArray;
+	if (i == 0) {
+		oldArray = new Array();
+	} else {
+		oldArray = F4[i - 1];
+	}
+	F4[i] = oldArray.slice();
+	if (xF4[i]) {
+		var removeAddData = xF4[i].split("|");
+		var removeData = removeAddData[0];
+		var remove = removeData.split(",");
+		for(var j = 0; j < remove.length - 1; j++) {
+			F4[i].splice(remove[j], 1);
+		}
+		var addData = removeAddData[1];
+		var add = addData.split(";");
+		for(var j = 0; j < add.length - 1; j++) {
+			var addPositionPointData = add[j].split(":");
+			var addPosition = addPositionPointData[0];
+			var addPointData = addPositionPointData[1];
+			var addPoint = addPointData.split(",");
+			F4[i].splice(addPosition, 0, new Array());
+			for(var k = 0; k < addPoint.length - 1; k += 3) {
+				F4[i][addPosition].push(new AP(addPoint[k], addPoint[k + 1], addPoint[k + 2]));
+			}
+		}
+	}
+}
+xF4 = null;
+// F5
+for (var i = 0; i < frameCount; i++) {
+	var oldArray;
+	if (i == 0) {
+		oldArray = new Array();
+	} else {
+		oldArray = F5[i - 1];
+	}
+	F5[i] = oldArray.slice();
+	if (xF5[i]) {
+		var removeAddData = xF5[i].split("|");
+		var removeData = removeAddData[0];
+		var remove = removeData.split(",");
+		for(var j = 0; j < remove.length - 1; j++) {
+			F5[i].splice(remove[j], 1);
+		}
+		var addData = removeAddData[1];
+		var add = addData.split(";");
+		for(var j = 0; j < add.length - 1; j++) {
+			var addPositionPointData = add[j].split(":");
+			var addPosition = addPositionPointData[0];
+			var addPointData = addPositionPointData[1];
+			var addPoint = addPointData.split(",");
+			F5[i].splice(addPosition, 0, new Array());
+			for(var k = 0; k < addPoint.length - 1; k += 3) {
+				F5[i][addPosition].push(new AP(addPoint[k], addPoint[k + 1], addPoint[k + 2]));
+			}
+		}
+	}
+}
+xF5 = null;
+// S
+for (var i = 0; i < frameCount; i++) {
+	var oldArray;
+	if (i == 0) {
+		oldArray = new Array();
+	} else {
+		oldArray = S[i - 1];
+	}
+	S[i] = oldArray.slice();
+	if (xS[i]) {
+		var removeAddData = xS[i].split("|");
+		var removeData = removeAddData[0];
+		var remove = removeData.split(",");
+		for(var j = 0; j < remove.length - 1; j++) {
+			S[i].splice(remove[j], 1);
+		}
+		var addData = removeAddData[1];
+		var add = addData.split(",");
+		for(var j = 0; j < add.length - 1; j += 3) {
+			S[i].splice(add[j], 0, new P(add[j + 1], add[j + 2]));
+		}
+	}
+}
+xS = null;
+// D
+for (var i = 0; i < frameCount; i++) {
+	var oldArray;
+	if (i == 0) {
+		oldArray = new Array();
+	} else {
+		oldArray = D[i - 1];
+	}
+	D[i] = oldArray.slice();
+	if (xD[i]) {
+		var removeAddData = xD[i].split("|");
+		var removeData = removeAddData[0];
+		var remove = removeData.split(",");
+		for(var j = 0; j < remove.length - 1; j++) {
+			D[i].splice(remove[j], 1);
+		}
+		var addData = removeAddData[1];
+		var add = addData.split(",");
+		for(var j = 0; j < add.length - 1; j += 2) {
+			D[i].splice(add[j], 0, eval(add[j + 1]));
+		}
+	}
+}
+xD = null;
+// V
+for (var i = 0; i < frameCount; i++) {
+	var oldArray;
+	if (i == 0) {
+		oldArray = new Array();
+	} else {
+		oldArray = V[i - 1];
+	}
+	V[i] = oldArray.slice();
+	if (xV[i]) {
+		var removeAddData = xV[i].split("|");
+		var removeData = removeAddData[0];
+		var remove = removeData.split(",");
+		for(var j = 0; j < remove.length - 1; j++) {
+			V[i].splice(remove[j], 1);
+		}
+		var addData = removeAddData[1];
+		var add = addData.split(",");
+		for(var j = 0; j < add.length - 1; j += 2) {
+			V[i].splice(add[j], 0, eval(add[j + 1]));
+		}
+	}
+}
+xV = null;
+// PI
+for (var i = 0; i < frameCount; i++) {
+	var oldArray;
+	if (i == 0) {
+		oldArray = new Array();
+	} else {
+		oldArray = PI[i - 1];
+	}
+	PI[i] = oldArray.slice();
+	if (xPI[i]) {
+		var removeAddData = xPI[i].split("|");
+		var removeData = removeAddData[0];
+		var remove = removeData.split(",");
+		for(var j = 0; j < remove.length - 1; j++) {
+			PI[i].splice(remove[j], 1);
+		}
+		var addData = removeAddData[1];
+		var add = addData.split(",");
+		for(var j = 0; j < add.length - 1; j += 3) {
+			PI[i].splice(add[j], 0, add[j + 1]);
+		}
+	}
+}
+xPI = null;
+// NI
+for (var i = 0; i < frameCount; i++) {
+	var oldArray;
+	if (i == 0) {
+		oldArray = new Array();
+	} else {
+		oldArray = NI[i - 1];
+	}
+	NI[i] = oldArray.slice();
+	if (xNI[i]) {
+		var removeAddData = xNI[i].split("|");
+		var removeData = removeAddData[0];
+		var remove = removeData.split(",");
+		for(var j = 0; j < remove.length - 1; j++) {
+			NI[i].splice(remove[j], 1);
+		}
+		var addData = removeAddData[1];
+		var add = addData.split(",");
+		for(var j = 0; j < add.length - 1; j += 3) {
+			NI[i].splice(add[j], 0, add[j + 1]);
+		}
+	}
+}
+xNI = null;
+var ImageLoader = function () {
+	this.onprogress = function (loaded, total) {};
+	this.oncompletion = function (images) {};
+	this.loaded = this.total = 0;
+	this.load = function (images) {
+		var loader = this;
+		for (i in images) {
+			if (typeof images[i] != "string") {
+				continue;
+			}
+			try {
+				this.total++;
+				var imageSrc = images[i];
+				images[i] = new Image();
+				images[i].src = imageSrc;
+				images[i].onload = function () {
+					loader.loaded++;
+					loader.onprogress(loader.loaded, loader.total);
+					if (loader.loaded == loader.total) {
+						loader.oncompletion(images);
+					}
+				}
+			} catch (e) {}
+		}
+		loader.onprogress(this.loaded, this.total);
+		if (this.total == 0) {
+			loader.oncompletion(images);
+		}
+	}
+}
+var loadingImage = true;
+loadImages = function() {
+	this.loader = new ImageLoader();
+	this.loader.onprogress = function (loaded, total) {
+		imageLoadingText = "Image " + loaded + "/" + total;
+	}
+	this.loader.oncompletion = function (images) {
+		imageLoadingText = "";
+		loadingImage = false;
+		if (loadingImage == false && loadingAudio == false) {
+			loading = false;
+		}
+	}
+	this.loader.load({
+		progressBackground: "img/progressBackground.png",
+		progressBarTail: "img/ProgressBarTail.png",
+		previous: "img/Previous.png",
+		progressBarProgressHead: "img/ProgressBarProgressHead.png",
+		pausePressed: "img/PausePressed.png",
+		pauseDisable: "img/DisablePause.png",
+		BG_0_0: "img/BG_0_0.png",
+		pause: "img/Pause.png",
+		progressBarProgressTail: "img/ProgressBarProgressTail.png",
+		DI1: "./img/DI1.png",
+		progressBarProgressDone: "img/ProgressBarProgressDone.png",
+		next: "img/Next.png",
+		stop: "img/Stop.png",
+		nextPressed: "img/NextPressed.png",
+		progressBarProgressBackground: "img/ProgressBarProgressBackground.png",
+		nextDisable: "img/DisableNext.png",
+		previousPressed: "img/PreviousPressed.png",
+		play: "img/Play.png",
+		previousDisable: "img/DisablePrevious.png",
+		playPressed: "img/PlayPressed.png",
+		toolbarBackground: "img/ToolbarBackground.png",
+		stopPressed: "img/StopPressed.png",
+		progressBarBackground: "img/ProgressBarBackground.png",
+		playDisable: "img/DisablePlay.png",
+		progressBarHead: "img/ProgressBarHead.png",
+		stopDisable: "img/DisableStop.png",
+	});
+}
+var AudioLoader = function () {
+	this.onprogress = function (loaded, total) {};
+	this.oncompletion = function (audios) {};
+	this.loadedSrc = new Array();
+	this.loaded = this.total = 0;
+	this.load = function (audios) {
+		var loader = this;
+		for (i in audios) {
+			if (typeof audios[i] != "string") {
+				continue;
+			}
+			try {
+				this.total++;
+				var audioSrc = audios[i];
+				this.loadedSrc[audioSrc] = false;
+				audios[i] = new Audio();
+				audios[i].addEventListener('canplaythrough', function() {
+					loader.loadedSrc[this.src] = true;
+					loader.loaded = 0;
+					for (curSrc in loader.loadedSrc) {
+						if (loader.loadedSrc[curSrc] == true) {
+							loader.loaded++;
+						}
+					}
+					loader.onprogress(loader.loaded, loader.total);
+					if (loader.loaded == loader.total) {
+						loader.oncompletion(audios);
+					}
+				}, false);
+				audios[i].src = audioSrc;
+			} catch (e) {}
+		}
+		loader.onprogress(this.loaded, this.total);
+		if (this.total == 0) {
+			loader.oncompletion(audios);
+		}
+	}
+}
+var loadingAudio = true;
+loadAudios = function() {
+	this.loader = new AudioLoader();
+	this.loader.onprogress = function (loaded, total) {
+		audioLoadingText = "Audio " + loaded + "/" + total;
+	}
+	this.loader.oncompletion = function (audios) {
+		audioLoadingText = "";
+		loadingAudio = false;
+		if (loadingImage == false && loadingAudio == false) {
+			loading = false;
+		}
+	}
+	this.loader.load({
+	});
+}
+loadImages();
+loadAudios();
+</script>
+
+
+</body></html>
