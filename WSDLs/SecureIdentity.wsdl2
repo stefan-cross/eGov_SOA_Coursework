@@ -1,0 +1,63 @@
+<wsdl2:description xmlns:wsdl2="http://www.w3.org/ns/wsdl" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wrpc="http://www.w3.org/ns/wsdl/rpc" xmlns:wsoap="http://www.w3.org/ns/wsdl/soap" xmlns:tns="http://identity.egov.uk/" xmlns:wsdlx="http://www.w3.org/ns/wsdl-extensions" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:whttp="http://www.w3.org/ns/wsdl/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://identity.egov.uk/"><wsdl2:types><xsd:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://identity.egov.uk/" version="1.0">
+   <xsd:element name="getPerson" type="tns:getPerson"></xsd:element>
+   <xsd:element name="getPersonResponse" type="tns:getPersonResponse"></xsd:element>
+   <xsd:element name="setPerson" type="tns:setPerson"></xsd:element>
+   <xsd:element name="setPersonResponse" type="tns:setPersonResponse"></xsd:element>
+   <xsd:complexType name="setPerson">
+      <xsd:sequence>
+         <xsd:element minOccurs="0" name="arg0" type="xsd:string"></xsd:element>
+         <xsd:element minOccurs="0" name="arg1" type="xsd:string"></xsd:element>
+         <xsd:element minOccurs="0" name="arg2" type="tns:title"></xsd:element>
+         <xsd:element minOccurs="0" name="arg3" type="xsd:string"></xsd:element>
+         <xsd:element minOccurs="0" name="arg4" type="xsd:string"></xsd:element>
+         <xsd:element minOccurs="0" name="arg5" type="xsd:string"></xsd:element>
+         <xsd:element minOccurs="0" name="arg6" type="tns:address"></xsd:element>
+         <xsd:element minOccurs="0" name="arg7" type="xsd:string"></xsd:element>
+         <xsd:element minOccurs="0" name="arg8" type="xsd:string"></xsd:element>
+         <xsd:element minOccurs="0" name="arg9" type="xsd:string"></xsd:element>
+         <xsd:element minOccurs="0" name="arg10" type="xsd:string"></xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="address">
+      <xsd:sequence></xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="setPersonResponse">
+      <xsd:sequence>
+         <xsd:element minOccurs="0" name="return" type="tns:person"></xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="person">
+      <xsd:sequence>
+         <xsd:element minOccurs="0" name="DOB" type="xsd:string"></xsd:element>
+         <xsd:element minOccurs="0" name="email" type="xsd:string"></xsd:element>
+         <xsd:element minOccurs="0" name="MPNHome" type="xsd:string"></xsd:element>
+         <xsd:element minOccurs="0" name="MPNMobile" type="xsd:string"></xsd:element>
+         <xsd:element minOccurs="0" name="name" type="xsd:string"></xsd:element>
+         <xsd:element minOccurs="0" name="nextOfKin" type="xsd:string"></xsd:element>
+         <xsd:element minOccurs="0" name="previousRef" type="xsd:string"></xsd:element>
+         <xsd:element minOccurs="0" name="primaryAddress" type="tns:address"></xsd:element>
+         <xsd:element minOccurs="0" name="surname" type="xsd:string"></xsd:element>
+         <xsd:element minOccurs="0" name="title" type="tns:title"></xsd:element>
+         <xsd:element minOccurs="0" name="uniqueRef" type="xsd:string"></xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="getPerson">
+      <xsd:sequence>
+         <xsd:element minOccurs="0" name="arg0" type="xsd:string"></xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="getPersonResponse">
+      <xsd:sequence>
+         <xsd:element minOccurs="0" name="return" type="tns:person"></xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:simpleType name="title">
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="Mr"></xsd:enumeration>
+         <xsd:enumeration value="Miss"></xsd:enumeration>
+         <xsd:enumeration value="Mrs"></xsd:enumeration>
+         <xsd:enumeration value="Dr"></xsd:enumeration>
+         <xsd:enumeration value="Sir"></xsd:enumeration>
+      </xsd:restriction>
+   </xsd:simpleType>
+</xsd:schema></wsdl2:types><wsdl2:interface name="IPerson"><wsdl2:operation name="setPerson" style="http://www.w3.org/ns/wsdl/style/rpc" wrpc:signature="arg0 #in arg1 #in arg2 #in arg3 #in arg4 #in arg5 #in arg6 #in arg7 #in arg8 #in arg9 #in arg10 #in return #return " pattern="http://www.w3.org/ns/wsdl/in-out"><wsdl2:input element="tns:setPerson"></wsdl2:input><wsdl2:output element="tns:setPersonResponse" wsaw:Action="http://identity.egov.uk/IPerson/setPersonResponse"></wsdl2:output></wsdl2:operation><wsdl2:operation name="getPerson" style="http://www.w3.org/ns/wsdl/style/rpc http://www.w3.org/ns/wsdl/style/iri" wrpc:signature="arg0 #in return #return " pattern="http://www.w3.org/ns/wsdl/in-out"><wsdl2:input element="tns:getPerson"></wsdl2:input><wsdl2:output element="tns:getPersonResponse" wsaw:Action="http://identity.egov.uk/IPerson/getPersonResponse"></wsdl2:output></wsdl2:operation></wsdl2:interface><wsdl2:binding name="IdentitySoap11Binding" interface="tns:IPerson" type="http://www.w3.org/ns/wsdl/soap" wsoap:version="1.1"><wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="SgnOnlyAnonymous"><wsp:ExactlyOne><wsp:All><sp:SymmetricBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"><wsp:Policy><sp:ProtectionToken><wsp:Policy><sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/Never"><wsp:Policy><sp:RequireThumbprintReference></sp:RequireThumbprintReference><sp:WssX509V3Token10></sp:WssX509V3Token10></wsp:Policy></sp:X509Token></wsp:Policy></sp:ProtectionToken><sp:AlgorithmSuite><wsp:Policy><sp:Basic256></sp:Basic256></wsp:Policy></sp:AlgorithmSuite><sp:Layout><wsp:Policy><sp:Lax></sp:Lax></wsp:Policy></sp:Layout><sp:IncludeTimestamp></sp:IncludeTimestamp><sp:OnlySignEntireHeadersAndBody></sp:OnlySignEntireHeadersAndBody></wsp:Policy></sp:SymmetricBinding><sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"><sp:Body></sp:Body></sp:SignedParts><sp:Wss11 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"><sp:Policy><sp:MustSupportRefKeyIdentifier></sp:MustSupportRefKeyIdentifier><sp:MustSupportRefIssuerSerial></sp:MustSupportRefIssuerSerial><sp:MustSupportRefThumbprint></sp:MustSupportRefThumbprint><sp:RequireSignatureConfirmation></sp:RequireSignatureConfirmation></sp:Policy></sp:Wss11><sp:Trust10 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"><wsp:Policy><sp:RequireClientEntropy></sp:RequireClientEntropy><sp:RequireServerEntropy></sp:RequireServerEntropy><sp:MustSupportIssuedTokens></sp:MustSupportIssuedTokens></wsp:Policy></sp:Trust10></wsp:All></wsp:ExactlyOne></wsp:Policy><wsdl2:operation ref="tns:setPerson" wsoap:action=""><wsdl2:input></wsdl2:input><wsdl2:output></wsdl2:output></wsdl2:operation><wsdl2:operation ref="tns:getPerson" wsoap:action=""><wsdl2:input></wsdl2:input><wsdl2:output></wsdl2:output></wsdl2:operation></wsdl2:binding><wsdl2:binding name="IdentitySoap12Binding" interface="tns:IPerson" type="http://www.w3.org/ns/wsdl/soap" wsoap:version="1.2"><wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="SgnOnlyAnonymous"><wsp:ExactlyOne><wsp:All><sp:SymmetricBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"><wsp:Policy><sp:ProtectionToken><wsp:Policy><sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/Never"><wsp:Policy><sp:RequireThumbprintReference></sp:RequireThumbprintReference><sp:WssX509V3Token10></sp:WssX509V3Token10></wsp:Policy></sp:X509Token></wsp:Policy></sp:ProtectionToken><sp:AlgorithmSuite><wsp:Policy><sp:Basic256></sp:Basic256></wsp:Policy></sp:AlgorithmSuite><sp:Layout><wsp:Policy><sp:Lax></sp:Lax></wsp:Policy></sp:Layout><sp:IncludeTimestamp></sp:IncludeTimestamp><sp:OnlySignEntireHeadersAndBody></sp:OnlySignEntireHeadersAndBody></wsp:Policy></sp:SymmetricBinding><sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"><sp:Body></sp:Body></sp:SignedParts><sp:Wss11 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"><sp:Policy><sp:MustSupportRefKeyIdentifier></sp:MustSupportRefKeyIdentifier><sp:MustSupportRefIssuerSerial></sp:MustSupportRefIssuerSerial><sp:MustSupportRefThumbprint></sp:MustSupportRefThumbprint><sp:RequireSignatureConfirmation></sp:RequireSignatureConfirmation></sp:Policy></sp:Wss11><sp:Trust10 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"><wsp:Policy><sp:RequireClientEntropy></sp:RequireClientEntropy><sp:RequireServerEntropy></sp:RequireServerEntropy><sp:MustSupportIssuedTokens></sp:MustSupportIssuedTokens></wsp:Policy></sp:Trust10></wsp:All></wsp:ExactlyOne></wsp:Policy><wsdl2:operation ref="tns:setPerson" wsoap:action=""><wsdl2:input></wsdl2:input><wsdl2:output></wsdl2:output></wsdl2:operation><wsdl2:operation ref="tns:getPerson" wsoap:action=""><wsdl2:input></wsdl2:input><wsdl2:output></wsdl2:output></wsdl2:operation></wsdl2:binding><wsdl2:service name="Identity" interface="tns:IPerson"><wsdl2:endpoint name="IdentityHttpsSoap11Endpoint" binding="tns:IdentitySoap11Binding" address="https://opentuned.local:8343/services/Identity.IdentityHttpsSoap11Endpoint"></wsdl2:endpoint><wsdl2:endpoint name="IdentityHttpsSoap12Endpoint" binding="tns:IdentitySoap12Binding" address="https://opentuned.local:8343/services/Identity.IdentityHttpsSoap12Endpoint"></wsdl2:endpoint><wsdl2:endpoint name="IdentityHttpSoap12Endpoint" binding="tns:IdentitySoap12Binding" address="http://opentuned.local:8380/services/Identity.IdentityHttpSoap12Endpoint"></wsdl2:endpoint><wsdl2:endpoint name="IdentityHttpSoap11Endpoint" binding="tns:IdentitySoap11Binding" address="http://opentuned.local:8380/services/Identity.IdentityHttpSoap11Endpoint"></wsdl2:endpoint></wsdl2:service></wsdl2:description>
